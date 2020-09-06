@@ -1,0 +1,17 @@
+
+    \frametitle{\textbf{Sabing all stack}}
+    \begin{lstlisting}
+public void SellItem(...) {
+    //snip
+    var tax = subtotal * .23;
+    Apply(new ItemSold(_id,....,tax));
+}
+
+public void SellItem(...) {
+    //snip
+    var customerScore = _externalService
+                    .GetCustomerScoreFor(customer);
+
+    Apply(new ItemSold(_id,....,customerScore));
+}\end{lstlisting}
+

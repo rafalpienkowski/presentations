@@ -1,8 +1,6 @@
 # Presentations
 
-This repository contains my presentations. They are mostly made with [Latex](https://en.wikipedia.org/wiki/LaTeX).  
-
-Content:
+This repository contains my presentations. 
 
 # Contributing
 

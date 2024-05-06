@@ -7,22 +7,680 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>My history with different OSS</title>
+		<title>Słaba prezentacj o programowaniu funkcyjnym</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<link rel="stylesheet" href="plugin/highlight/vs.css">
+
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-auto-animate>
+				<section>
+          <h3>
+            Słaba   prezentacja o programowaniu funkcyjnym
+          </h3>
           <p>
-            Słaba prezentacja o programowaniu funkcyjnym
+            Rafał Pieńkowski
           </p>
+        </section>
+
+        <section>
+            Małe wprowadzenie...
+        </section>
+
+
+				<section data-auto-animate>
+          <h2>Zanim zaczniemy</h2>
+          <ul>
+            <li>Ostrzegam - prezentacja jest słaba</li>
+            <li>Jest dużo kodu</li>
+            <li>Nie jestem ekspertem od FP (F#)</li>
+            <li>Nie wdrożyłem na produkcję kodu czysto funkcyjnego (F#)</li>
+          </ul>
+          <aside class="notes">
+          Nomady,currying itp. - innym razem
+          </aside>
+        </section>
+
+				<section data-auto-animate>
+          <h2>Zanim zaczniemy</h2>
+          <ul>
+            <li>Ostrzegam - prezentacja jest słaba</li>
+            <li>Nie jestem ekspertem od FP (F#)</li>
+            <li>Nie wdrożyłem na produkcję kodu czysto funkcyjnego (F#)</li>
+                miałem do tego dobry powód, ale o tym później
+          </ul>
+          <aside class="notes">
+          Nomady,currying itp. - innym razem
+          </aside>
+        </section>
+
+        <section>
+          Jeśli przyszliście tutaj by dowiedzieć się gdzie i czy stosować programowanie funkcyjne...
+        </section>
+
+        <section>
+          <img data-src="./img/it_depends.jpeg" height="650">
+        </section>
+
+        <section>
+          Jeszcze nie wychodźcie...
+        </section>
+
+        <section>
+          To o czym do jasnej cholery jest ta prezentacja? 🤔
+
+          <aside class="notes">
+            Opowiedzieć o tym jak próbowałem kilka lat podejść do tematu
+            Scott Wlaschin i jego książka: "Domain modelling made functional"
+          </aside>
+        </section>
+
+        <section>
+          <img data-src="./img/domain_modelling_made_funcitonal.jpg" height="750">
+        </section>
+
+        <section>
+          <img data-src="./img/scott_wlaschin.webp" height="750">
+        </section>
+
+        <section data-auto-animate>
+          <div class="r-stack">
+            <img data-src="./img/intro.jpg" height="600">
+          </div>
+          <aside class="notes">
+            <li>
+              Pobawiłem się przykładami z Domain modelling 
+            </li>
+            <li>
+              Przerobiłem kawałem projektu integracji z dostawcą płatności
+            </li>
+            <li>
+              Itd.
+            </li>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <div class="r-stack">
+            <img data-src="./img/intro.jpg" height="600">
+            <img data-src="./img/intro2.jpg" height="350">
+          </div>
+        </section>
+
+        <section>
+          Teraz zrozumiem jak ktoś teraz wyjdzie 🙈
+        </section>
+
+        <section data-auto-animate>
+          <img data-src="./img/Gorat.png">
+        </section>
+
+        <section data-auto-animate>
+          <img data-src="./img/Gorat.png" height="550">
+          <h3>GREAT SUCCESS!</h3>
+        </section>
+
+        <section>
+          Trzeba napisać kodzik, żeby zapezpieczyć hajs 💰
+        </section>
+
+        <section>
+          <img data-src="./img/treasury-13.png">
+        </section>
+
+        <section>
+          <img data-src="./img/treasury-14.png">
+        </section>
+
+        <section>
+          Programowanie obiektowe:
+          <pre>
+            <code data-line-numbers="1-7|9-19|21-31">public class Door {
+  public int Id { get; private set; }
+  public string? OpenedBy { get; private set; }
+  public string? ClosedBy { get; private set; }
+  public DateTimeOffset? OpenedAt { get; private set; }
+  public DateTimeOffset? ClosedAt { get; private set; }
+  public bool IsOpen { get; private set; }
+  
+  public void Open(string by, DateTimeOffset at)
+  {
+    if(IsOpen)
+    {
+      throw new Exception("Door open!");
+    }
+
+    IsOpen = true;
+    OpenedBy = by;
+    OpenedAt = at;
+  }
+
+  public void Close(string by, DateTimeOffset at)
+  {
+    if(!IsOpen)
+    {
+      throw new Exception("Door closed!");
+    }
+
+    IsOpen = false;
+    ClosedBy = by;
+    ClosedAt = at;
+  }
+}</code>
+          </pre>
+        </section>
+
+        <section>
+          Serwajs:
+
+          <pre>
+            <code data-line-numbers><script type="text/template">public class Serwajs{
+  private DbSet<Door> _doors;
+  
+  public void Open(int doorId, string by, 
+                   DateTimeOffset at)
+  {
+    var door = _doors
+                .SingleOrDefault(d => d.Id == doorId &&
+                                      d.IsOpen == false);
+    door?.Open(by, at);
+
+    _doors.SaveChanges();
+  }
+}</script></code>
+          </pre>
+
+        </section>
+
+        <section>
+          Programowanie proceduralne (abiektowe):
+          <pre>
+            <code data-line-numbers>public class Door {
+  public int Id;
+  public string? OpenedBy;
+  public string? ClosedBy;
+  public DateTimeOffset? OpenedAt;
+  public DateTimeOffset? ClosedAt;
+  public bool IsOpen;
+}</code>
+          </pre>
+
+          <aside class="notes">
+            Teraz tak nikt nie robi ;)
+          </aside>
+        </section>
+
+
+        <section>
+          Programowanie proceduralne <u>usprawnione</u>:
+          <pre>
+            <code data-line-numbers>public class Door {
+  public int Id { get; set; }
+  public string? OpenedBy { get; set; }
+  public string? ClosedBy { get; set; }
+  public DateTimeOffset? OpenedAt { get; set; }
+  public DateTimeOffset? ClosedAt { get; set; }
+  public bool IsOpen { get; set; }
+}</code>
+          </pre>
+        </section>
+
+        <section>
+          Programowanie proceduralne - serwajs:
+
+          <pre>
+            <code data-line-numbers="2|4-17|19"><script type="text/template">public class Serwajs{
+  private DbSet<Door> _doors;
+  
+  public void Open(int doorId, string by, 
+                          DateTimeOffset at)
+  {
+    var door = _doors
+                .SingleOrDefault(d => d.Id == doorId &&
+                                      d.IsOpen == false);
+
+    if(door == null || door.IsOpen)
+    {
+      throw new Exception("Can't open door!");
+    }
+    door.IsOpen = true;
+    door.OpenedBy = by;
+    door.OpenedAt = at;
+
+    _doors.SaveChanges();
+  }
+}</script></code>
+          </pre>
+        </section>
+
+        <section>
+          Programowanie funkcyjne:
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-8|9-19|21-31"><script type="text/template">type Door =
+    { Id: int
+      IsOpen: bool
+      OpenedAt: Option<DateTimeOffset>
+      OpenedBy: Option<string>
+      ClosedAt: Option<DateTimeOffset>
+      ClosedBy: Option<string> }
+
+let openDoor (at: DateTimeOffset) (by: string) 
+              (door: Door): Door =
+  if door.IsOpen then
+    raise (Exception "Can't open door")
+  else
+    { Id = door.Id
+      IsOpen = true
+      OpenedAt = Some(at)
+      OpenedBy = Some(by)
+      ClosedAt = None
+      ClosedBy = None }
+
+let closeDoor (at: DateTimeOffset) (by: string) 
+               (door: Door): Door =
+  if not door.IsOpen then
+    raise (Exception "Can't close door")
+  else
+    { Id = door.Id
+      IsOpen = false
+      OpenedAt = None
+      OpenedBy = None
+      ClosedAt = Some(at)
+      ClosedBy = Some(by) }
+</script></code>
+          </pre>
+
+        </section>
+
+        <section>
+          <img data-src="./img/poo.png" height="650">
+          <aside class="notes">
+            Forsujemy podejście obiektowe do kodu funkcyjnego
+            Robimy to źle
+          </aside>
+        </section>
+
+ <section>
+          Programowanie funkcyjne:
+          <pre>
+            <code class="language-fsharp" data-line-numbers="6-11"><script type="text/template">let openDoor (at: DateTimeOffset) (by: string) 
+              (door: Door): Door =
+  if door.IsOpen then
+    raise (Exception "Can't open door")
+  else
+    { Id = door.Id
+      IsOpen = true
+      OpenedAt = Some(at)
+      OpenedBy = Some(by)
+      ClosedAt = None
+      ClosedBy = None }
+</script></code>
+          </pre>
+          <aside class="notes">
+            Tworzymy nowy obiekt.
+          </aside>
+        </section>
+
+        <section>
+          Image o programowaniu funkcyjnym i anarchii
+        </section>
+
+        <section data-auto-animate>
+          <p>
+            Odrobina teorii 
+          </p>
+        </section>
+
+        <section data-auto-animate>
+          <p>
+            Odrobina teorii 
+          </p>
+          <p>
+            obiecuję
+          </p>
+        </section>
+
+        <section>
+            <img data-src="./img/theory1.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory2.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory3.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory4.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory2.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory5.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory2.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/theory6.jpeg" >
+          <aside class="notes">
+            Big Data -> Map-Reduce
+          </aside>
+        </section>
+
+        <section>
+          <img data-src="./img/theory7.jpeg" >
+        </section>
+
+        <section>
+          <img data-src="./img/pinkyandbrain.jpeg" height="650" >
+        </section>
+
+        <section>
+          Programowanie funkcyjne - domain modelling
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-9|11-21|23-33"><script type="text/template">type OpenedDoor =
+    { Id: int
+      OpenedAt: DateTimeOffset
+      OpenedBy: string }
+
+type ClosedDoor =
+    { Id: int
+      ClosedAt: DateTimeOffset
+      ClosedBy: string }
+
+type OpenDoor =
+    DateTimeOffset // dependency
+        -> string // dependency
+        -> ClosedDoor  // input
+        -> OpenedDoor // output
+
+type CloseDoor = 
+    DateTimeOffset // dependency
+        -> string // dependency
+        -> OpenedDoor // input
+        -> ClosedDoor // output
+
+let openDoor: OpenDoor =
+    fun occuredAt person closedDoor ->
+        { Id = closedDoor.Id
+          OpenedAt = occuredAt
+          OpenedBy = person }
+
+let closeDoor: CloseDoor =
+    fun occuredAt person openedDoor ->
+        { Id = openedDoor.Id
+          ClosedAt = occuredAt
+          ClosedBy = person }
+              </script>
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-10|12-21|23-28"><script type="text/template">let doorId = 2
+let now = DateTimeOffset(DateTime(2024, 2, 1), TimeSpan.Zero)
+let admin = "Admin"
+
+let takeOpenedDoor = { Id = doorId; OpenedAt = now; OpenedBy = admin }
+
+[<Fact>]
+let ``close door`` () =
+  let closed = closeDoor now admin takeOpenedDoor
+  closed |> should equal { Id = doorId; ClosedAt = now; ClosedBy = admin }
+
+let raf = "Raf"
+let later = now.AddDays 1
+
+[<Fact>]
+let ``close then open door`` () =
+  let opened = openDoor later raf (closeDoor now admin takeOpenedDoor)
+  opened |> should equal { Id = doorId; OpenedAt = now; OpenedBy = admin }
+
+// w C# czy innym OOP byśmy zrobili coś takiego
+// open(close(open(close(open(close(openedDoor))))))
+
+[<Fact>]
+let ``close then open door improved`` () =
+  takeOpenedDoor
+    |> closeDoor now admin
+    |> openDoor later raf
+    |> should equal { Id = doorId; OpenedAt = now; OpenedBy = admin }
+              </script>
+              </code>
+          </pre>
+          <aside class="notes">
+            <ul>
+              <li><b>takeOpenedDoor</b> -> wszystko jest funkcją</li>
+              <li>Przemilczeć na początek <b>|></b></li>
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h2>
+            Pipe forward operator (|>)
+          </h2>
+          <p>
+            <em>"Passes the result of the left side to the function on the right side (forward pipe operator)."</em>
+          </p>
+
+
+          <pre>
+            <code class="language-fsharp"><script type="text/template">let print message =
+  printf "%s" message
+
+// "Hello World" will be passed as a parameter to the print function
+"Hello World" |> print</script></code>
+          </pre>
+
+          <pre>
+            <code><script type="text/template">public static void Pipe<T>(this T val, Action<T> action)
+{ 
+  if (val != null) action(val); 
+}</script></code>
+          </pre>
+
+          <aside class="notes">
+            LINQ jako przykład.
+            Tego natywnie w C# nie ma
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          Dodajmy trochę logiki
+        </section>
+
+        <section data-auto-animate>
+          Dodajmy trochę logiki
+
+          <p>
+            TODO naryzuj klucz
+          </p>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-5|7-17|19-23|25-37|39-52"><script type="text/template">type DoorId = DoorId of int
+type Person = Person of string
+type OccuredAt = OccuredAt of DateTimeOffset
+type Key = Key of int
+type Lock = Lock of int
+
+type OpenedDoor =
+    { Id: DoorId
+      Lock: Lock
+      OpenedAt: OccuredAt
+      By: Person }
+
+type ClosedDoor =
+    { Id: DoorId
+      Lock: Lock
+      ClosedAt: OccuredAt
+      By: Person }
+    
+type LockedDoor =
+    { Id: DoorId
+      Lock: Lock
+      LockedAt: OccuredAt
+      By: Person }
+
+type LockDoor = 
+      OccuredAt 
+        -> Person 
+        -> Key 
+        -> ClosedDoor 
+        -> Result<LockedDoor, string>
+
+type UnlockDoor = 
+      OccuredAt 
+        -> Person 
+        -> Key 
+        -> LockedDoor 
+        -> Result<ClosedDoor, string>
+
+let private turn (key: Key) (lock: Lock): bool =
+    let keyId (Key k) = k
+    let lockId (Lock l) = l
+    keyId key = lockId lock
+
+let unlockDoor: UnlockDoor =
+    fun occuredAt person key lockedDoor ->
+        if turn key lockedDoor.Lock then
+            Ok { Id = lockedDoor.Id
+                 Lock = lockedDoor.Lock
+                 ClosedAt = occuredAt
+                 By = person }
+        else
+            Error "You can't unlock door with this key"
+            </script>
+            </code>
+          </pre>
+
+          <aside class="notes">
+            Tworzenie typów
+            Operacja może zakończyć się niepowodzeniem
+            Railway Oriented programming
+          </aside>
+        </section>
+
+        <section>
+          Testy
+        </section>
+
+        <section data-auto-animate>
+          <h2>Dodajmy feature</h2>
+          <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Dodajmy feature</h2>
+          <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
+          <img data-src="./img/bodygourds.webp" height="450">
+        </section>
+
+        <section data-auto-animate>
+          <h2>Dodajmy feature</h2>
+          <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
+          <img data-src="./img/letter.jpeg" height="450">
+        </section>
+
+        <section>
+          <h1>Kodzik do wysyłki maila
+          </h1>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Panie, a co się stanie jak będę chciał zapisać stan?</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Panie, a co się stanie jak będę chciał zapisać stan?</h2>
+          <h3>Angry database</h3>
+          <aside class="notes">
+            Mapowanie obiektów
+          </aside>
+        </section>
+
+        <section>
+          <h2>Jakieś propozycję?</h2>
+        </section>
+
+        <section>
+          <h1>Event sourcing</h1>
+
+          <aside class="notes">
+            <ul>
+              <li>Prosta transformata</li>
+              <li>Decider pattern by Jeremie</li>
+              <li>Dobrze się komponuje z Event Stormingiem</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h1>Jest dobrze?</h1>
+        </section>
+
+        <section data-auto-animate>
+          <h1>Jest dobrze?</h1>
+          <h2>A może to jednak to zakładanie gaci przez głowę?</h2>
+
+          <aside class="notes">
+            AKA onanizm techiczny, klient/biznes płaci i płacze a my mamy fun
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h1>To gdzie może być miejsce na podejście funkcyjne?</h1>
+        </section>
+
+        <section data-auto-animate>
+          <h1>To gdzie może być miejsce na podejście funkcyjne?</h1>
+          <h2>Obraz klucza</h2>
+        </section>
+
+        <section>
+          TODO obraz z rebusem
+        </section>
+
+        <section>
+          Kodzik z połączeniem C# i F# (fpoop)
+        </section>
+
+        <section>
+          Gdzie można wykorzysać F#:
+          <ul>
+            <li>Testy</li>
+            <li>Skrypty</li>
+            <li>Prototypowanie</li>
+            <li>Transformacja</li>
+            <li>Map-Reduce</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Dodatkowe materiały</h3>
+          <ul>
+            <li><a href="https://fsharpforfunandprofit.com/">F# for fun and profit by Scott Wlaschin</a></li>
+            <li><a href="https://thinkbeforecoding.com/post/2021/12/17/functional-event-sourcing-decider">Decider Pattern by Jeremie Chassaing</a></li>
+          </ul>
         </section>
 
 			</div>
@@ -38,6 +696,9 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+        controls: false,
+        width: 1200,
+        height: 875,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]

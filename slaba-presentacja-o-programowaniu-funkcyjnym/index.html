@@ -39,24 +39,10 @@
             <li>Ostrzegam - prezentacja jest słaba</li>
             <li>Jest dużo kodu</li>
             <li>Nie jestem ekspertem od FP (F#)</li>
+            <li>Nię będę uczył składni F#</li>
+            <li>Nomady, currying, itp - innym razem</li>
             <li>Nie wdrożyłem na produkcję kodu czysto funkcyjnego (F#)</li>
           </ul>
-          <aside class="notes">
-          Nomady,currying itp. - innym razem
-          </aside>
-        </section>
-
-				<section data-auto-animate>
-          <h2>Zanim zaczniemy</h2>
-          <ul>
-            <li>Ostrzegam - prezentacja jest słaba</li>
-            <li>Nie jestem ekspertem od FP (F#)</li>
-            <li>Nie wdrożyłem na produkcję kodu czysto funkcyjnego (F#)</li>
-                miałem do tego dobry powód, ale o tym później
-          </ul>
-          <aside class="notes">
-          Nomady,currying itp. - innym razem
-          </aside>
         </section>
 
         <section>
@@ -75,8 +61,11 @@
           To o czym do jasnej cholery jest ta prezentacja? 🤔
 
           <aside class="notes">
-            Opowiedzieć o tym jak próbowałem kilka lat podejść do tematu
-            Scott Wlaschin i jego książka: "Domain modelling made functional"
+            <ul>
+              <li>Opowiedzieć o tym jak próbowałem kilka lat podejść do tematu</li>
+              <li>Zaspokojenie własnej ciekawości</li>
+              <li>Trochę się nudziłem</li>
+            </ul>
           </aside>
         </section>
 
@@ -110,6 +99,19 @@
             <img data-src="./img/intro.jpg" height="600">
             <img data-src="./img/intro2.jpg" height="350">
           </div>
+        </section>
+
+        <section>
+          <h3>O czym sobie opowiemy</h3>
+          <ul>
+            <li>Z czym miewałem problemy</li>
+            <li>Jak mocno FP różni się od OOP</li>
+            <li>Co mi się spodobało, a co niekoniecznie</li>
+            <li>Dlaczego tak mało ludzi pracuje z FP na codzień?</li>
+          </ul>
+          <aside class="notes">
+            A to wszystko z mojej subiektywnej perspektywy, osoby pracującej z OOP na codzień
+          </aside>
         </section>
 
         <section>
@@ -294,14 +296,21 @@ let closeDoor (at: DateTimeOffset) (by: string)
       ClosedBy = Some(by) }
 </script></code>
           </pre>
-
+          <aside class="notes">
+            <ul>
+              <li>Opowiedzieć o Option</li>
+              <li>Domyślnie nie ma metod <b>void</b></li>
+            </ul>
+          </aside>
         </section>
 
         <section>
           <img data-src="./img/poo.png" height="650">
           <aside class="notes">
-            Forsujemy podejście obiektowe do kodu funkcyjnego
-            Robimy to źle
+            <ul>
+              <li>Forsowałem podejście obiektowe do kodu funkcyjnego</li>
+              <li>Nie widziałem różnicy</li>
+            </ul>
           </aside>
         </section>
 
@@ -322,31 +331,22 @@ let closeDoor (at: DateTimeOffset) (by: string)
 </script></code>
           </pre>
           <aside class="notes">
-            Tworzymy nowy obiekt.
+            Tworzymy nowy obiekt -> ważna sprawa
           </aside>
         </section>
 
         <section>
-          Image o programowaniu funkcyjnym i anarchii
-        </section>
-
-        <section data-auto-animate>
-          <p>
-            Odrobina teorii 
-          </p>
-        </section>
-
-        <section data-auto-animate>
-          <p>
-            Odrobina teorii 
-          </p>
-          <p>
-            obiecuję
-          </p>
+          <img data-src="./img/anarchy.png" height="650">
+          <aside class="notes">
+            Opowiedzieć co nam to daje
+          </aside>
         </section>
 
         <section>
-            <img data-src="./img/theory1.jpeg" >
+          <img data-src="./img/theory1.jpeg" >
+          <aside class="notes">
+            Przypomnieć o tym, że nie ma <b>void</b> i że są jawnie zdefiniowane wyjścia
+          </aside>
         </section>
 
         <section>
@@ -363,6 +363,9 @@ let closeDoor (at: DateTimeOffset) (by: string)
 
         <section>
           <img data-src="./img/theory2.jpeg" >
+          <aside class="notes">
+            A tak to wygląda w OOP
+          </aside>
         </section>
 
         <section>
@@ -430,6 +433,13 @@ let closeDoor: CloseDoor =
               </script>
             </code>
           </pre>
+          <aside class="notes">
+            <ul>
+              <li>Definiujemy type -> to nie kosztuje dużo i jest podobne do rekordów</li>
+              <li>Deklarujemy sygnatury metod</li>
+              <li>Przez to, że mamy typy to odpada sprawdzanie stanu - kod się uprościł</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
@@ -451,7 +461,7 @@ let later = now.AddDays 1
 [<Fact>]
 let ``close then open door`` () =
   let opened = openDoor later raf (closeDoor now admin takeOpenedDoor)
-  opened |> should equal { Id = doorId; OpenedAt = now; OpenedBy = admin }
+  opened |> should equal { Id = doorId; OpenedAt = later; OpenedBy = raf }
 
 // w C# czy innym OOP byśmy zrobili coś takiego
 // open(close(open(close(open(close(openedDoor))))))
@@ -461,13 +471,15 @@ let ``close then open door improved`` () =
   takeOpenedDoor
     |> closeDoor now admin
     |> openDoor later raf
-    |> should equal { Id = doorId; OpenedAt = now; OpenedBy = admin }
+    |> should equal { Id = doorId; OpenedAt = later; OpenedBy = raf }
               </script>
               </code>
           </pre>
           <aside class="notes">
             <ul>
-              <li><b>takeOpenedDoor</b> -> wszystko jest funkcją</li>
+              <li>Skorzystałem z <b>DateTimeOffset</b> znanego z C# - jedyna różnica brak new</li>
+              <li><b>takeOpenedDoor</b> -> wszystko jest funkcją oraz F# ogarnia typy</li>
+              <li>Klasyczny xUnit -> nice</li>
               <li>Przemilczeć na początek <b>|></b></li>
             </ul>
           </aside>
@@ -504,14 +516,13 @@ let ``close then open door improved`` () =
         </section>
 
         <section data-auto-animate>
-          Dodajmy trochę logiki
+          Dodajmy trochę logiki do naszych drzwi
         </section>
 
         <section data-auto-animate>
-          Dodajmy trochę logiki
-
+          Dodajmy trochę logiki do naszych drzwi
           <p>
-            TODO naryzuj klucz
+            <img data-src="./img/lock.jpg" height="350">
           </p>
         </section>
 
@@ -574,14 +585,42 @@ let unlockDoor: UnlockDoor =
           </pre>
 
           <aside class="notes">
-            Tworzenie typów
-            Operacja może zakończyć się niepowodzeniem
-            Railway Oriented programming
+            <ul>
+              <li>Operacja może zakończyć się niepowodzeniem - Result</li>
+              <li>Railway Oriented programming</li>
+            </ul>
           </aside>
         </section>
 
         <section>
-          Testy
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-8|10-15|17-24"><script type="text/template">let doorId = DoorId 2
+let now = OccuredAt.from (DateTime(2024, 1, 1))
+let lock = Lock 3
+let admin = Person "admin"
+let takeClosedDoor : ClosedDoor = 
+    { Id = doorId; ClosedAt = now; By = admin; Lock = lock }
+let tom = Person "tom"
+let key = Key 3
+
+[<Fact>]
+let ``lock closed door`` () =
+    takeClosedDoor
+    |> lockDoor now tom key
+    |> mapOk
+    |> should equal { Id = doorId; By = tom; LockedAt = now; Lock = lock }
+
+let wrongKey = Key 4
+
+[<Fact>]
+let ``failed to lock door with wrong key`` () =
+    takeClosedDoor
+    |> lockDoor now tom wrongKey
+    |> mapError
+    |> should equal "You can't lock door with this key"
+</script>
+            </code>
+          </pre>
         </section>
 
         <section data-auto-animate>
@@ -592,18 +631,37 @@ let unlockDoor: UnlockDoor =
         <section data-auto-animate>
           <h2>Dodajmy feature</h2>
           <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
-          <img data-src="./img/bodygourds.webp" height="450">
+          <img data-src="./img/bodyguard.jpg" height="450">
         </section>
 
         <section data-auto-animate>
           <h2>Dodajmy feature</h2>
           <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
-          <img data-src="./img/letter.jpeg" height="450">
+          <img data-src="./img/message.jpg" height="450">
         </section>
 
         <section>
-          <h1>Kodzik do wysyłki maila
-          </h1>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-10|12-18"><script type="text/template">let sendEmail result =
+  match result with
+  | Ok r ->
+      Console.WriteLine $"[Ok]: {r}"
+      Console.WriteLine "Nothing to do"
+      result
+  | Error err ->
+      Console.WriteLine $"[Error] {err}"
+      Console.WriteLine "Sending email"
+      result
+
+[<Fact>]
+let ``failed to unlock door with wrong key`` () =
+    takeLockedDoor
+    |> unlockDoor now tom wrongKey
+    |> sendEmail
+    |> mapError
+    |> should equal "You can't unlock door with this key"
+            </script></code>
+          </pre>
         </section>
 
         <section data-auto-animate>
@@ -612,7 +670,7 @@ let unlockDoor: UnlockDoor =
 
         <section data-auto-animate>
           <h2>Panie, a co się stanie jak będę chciał zapisać stan?</h2>
-          <h3>Angry database</h3>
+          <img data-src="./img/angrydb.jpg" height="500">
           <aside class="notes">
             Mapowanie obiektów
           </aside>
@@ -624,7 +682,6 @@ let unlockDoor: UnlockDoor =
 
         <section>
           <h1>Event sourcing</h1>
-
           <aside class="notes">
             <ul>
               <li>Prosta transformata</li>
@@ -633,6 +690,11 @@ let unlockDoor: UnlockDoor =
             </ul>
           </aside>
         </section>
+
+        <section>
+          Decider
+        </section>
+
 
         <section data-auto-animate>
           <h1>Jest dobrze?</h1>

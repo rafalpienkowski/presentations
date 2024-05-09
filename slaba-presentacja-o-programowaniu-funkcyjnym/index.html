@@ -803,7 +803,55 @@ type Door =
       </section>
 
       <section>
-          Testy z fold
+        <pre>
+          <code class="language-fsharp" data-line-numbers="1-3|5-25|27-29|31-37|39-41"><script type="text/template">[<Fact>]
+let ``evolve states`` () =
+    let initial = Door.Initial
+
+    let doorOpened =
+        DoorOpened
+            {| DoorId = 3
+               By = "tom"
+               When = now
+               Version = 3 |}
+
+    let doorClosedByJohn =
+        DoorClosed
+            {| DoorId = 3
+               By = "john"
+               When = now
+               Version = 4 |}
+
+    let lockInstalled =
+        LockInstalled
+            {| DoorId = 3
+               By = "mr.quick"
+               LockId = 13
+               When = now
+               Version = 5 |}
+
+    let stream =
+        [ doorInstalled; doorClosed; doorOpened; 
+              doorClosedByJohn; lockInstalled ]
+
+    let expected =
+        Closed
+            { DoorId = 3
+              LockId = Some(13)
+              By = "mr.quick"
+              When = now
+              Version = 5 }
+
+    stream 
+      |> List.fold evolve initial 
+      |> should equal expected
+          </script></code>
+        </pre>
+        <aside class="notes">
+          <ul>
+            <li><b>FOLD</b></li>
+          </ul>
+        </aside>
       </section>
 
       <section>
@@ -935,6 +983,49 @@ let unlockDoor (cmd: UnlockDoor) (door: Door) =
   | InstallLock cmd -> installLock cmd door
   | LockDoor cmd -> lockDoor cmd door
   | UnlockDoor cmd -> unlockDoor cmd door
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-15|17-37"><script type="text/template">[<Fact>]
+let ``may not be lock by wrong key`` () =
+  let stream = [ doorInstalled; doorClosed; lockInstalled ]
+  let door = stream |> List.fold evolve initial
+
+  door
+  |> decide (
+      DoorCommand.LockDoor
+          {| DoorId = 3
+              KeyId = 15
+              Who = "Tom"
+              When = now |}
+  )
+  |> mapError
+  |> should equal "Invalid key"
+
+[<Fact>]
+let ``may be unlock`` () =
+  let stream = [ doorInstalled; doorClosed; lockInstalled; doorLocked ]
+  let door = stream |> List.fold evolve initial
+
+  door
+  |> decide (
+      DoorCommand.UnlockDoor
+          {| DoorId = 3
+              KeyId = 13
+              Who = "Alice"
+              When = now |}
+  )
+  |> mapOk
+  |> should
+      equal
+      [ (DoorUnlocked
+            {| DoorId = 3
+                By = "Alice"
+                When = now
+                Version = 5 |}) ]
             </script></code>
           </pre>
         </section>

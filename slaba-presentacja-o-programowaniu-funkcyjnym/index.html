@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<meta name="description" content="Słaba prezentacja o programowaniu funkcyjnym">
 		<meta name="author" content="Rafal Pienkowski">
-
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<title>Słaba prezentacj o programowaniu funkcyjnym</title>
@@ -12,7 +11,6 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css">
-
 		<link rel="stylesheet" href="plugin/highlight/vs.css">
 
 	</head>
@@ -50,7 +48,7 @@
         </section>
 
         <section>
-          <img data-src="./img/it_depends.jpeg" height="650">
+          <img data-src="./img/it_depends.jpeg" height="850">
         </section>
 
         <section>
@@ -102,7 +100,7 @@
         </section>
 
         <section>
-          <h3>O czym sobie opowiemy</h3>
+          <h3>O czym jest ta prezentacja</h3>
           <ul>
             <li>Z czym miewałem problemy</li>
             <li>Jak mocno FP różni się od OOP</li>
@@ -125,10 +123,6 @@
         <section data-auto-animate>
           <img data-src="./img/Gorat.png" height="550">
           <h3>GREAT SUCCESS!</h3>
-        </section>
-
-        <section>
-          Trzeba napisać kodzik, żeby zapezpieczyć hajs 💰
         </section>
 
         <section>
@@ -493,15 +487,6 @@ let ``close then open door improved`` () =
             <em>"Passes the result of the left side to the function on the right side (forward pipe operator)."</em>
           </p>
 
-
-          <pre>
-            <code class="language-fsharp"><script type="text/template">let print message =
-  printf "%s" message
-
-// "Hello World" will be passed as a parameter to the print function
-"Hello World" |> print</script></code>
-          </pre>
-
           <pre>
             <code><script type="text/template">public static void Pipe<T>(this T val, Action<T> action)
 { 
@@ -516,14 +501,12 @@ let ``close then open door improved`` () =
         </section>
 
         <section data-auto-animate>
-          Dodajmy trochę logiki do naszych drzwi
+          <h3>Dodajmy trochę logiki do naszych drzwi</h3>
         </section>
 
         <section data-auto-animate>
-          Dodajmy trochę logiki do naszych drzwi
-          <p>
-            <img data-src="./img/lock.jpg" height="350">
-          </p>
+          <h3>Dodajmy trochę logiki do naszych drzwi</h3>
+          <img data-src="./img/lock.jpg" height="350">
         </section>
 
         <section>
@@ -623,6 +606,10 @@ let ``failed to lock door with wrong key`` () =
           </pre>
         </section>
 
+        <section>
+          Rysunek maszyny stanów
+        </section>
+
         <section data-auto-animate>
           <h2>Dodajmy feature</h2>
           <h3>Za każdym razem, gdy ktoś spróbował otworzyć drzwi złym kluczem...</h3>
@@ -677,24 +664,292 @@ let ``failed to unlock door with wrong key`` () =
         </section>
 
         <section>
-          <h2>Jakieś propozycję?</h2>
+          Może przykładzik?
         </section>
 
         <section>
+          <h2>Jakieś propozycję?</h2>
+        </section>
+
+        <section data-auto-animate>
           <h1>Event sourcing</h1>
           <aside class="notes">
             <ul>
               <li>Prosta transformata</li>
               <li>Decider pattern by Jeremie</li>
-              <li>Dobrze się komponuje z Event Stormingiem</li>
+              <li>Dobrze się komponuje z Event Stormingiem -> następny slajd</li>
             </ul>
           </aside>
         </section>
 
-        <section>
-          Decider
+        <section data-auto-animate>
+          <h1>Event sourcing</h1>
+          <h1>+</h1>
+          <h1>Event storming</h1>
         </section>
 
+        <section>
+          <img data-src="./img/events.png">
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1|2-12|13-22|23-32"><script type="text/template">type DoorEvent =
+  | DoorInstalled of
+      {| DoorId: int
+         By: string
+         When: DateTime
+         Version: int |}
+  | LockInstalled of
+      {| DoorId: int
+         LockId: int
+         By: string
+         When: DateTime
+         Version: int |}
+  | DoorOpened of
+      {| DoorId: int
+         By: string
+         When: DateTime
+         Version: int |}
+  | DoorClosed of
+      {| DoorId: int
+         By: string
+         When: DateTime
+         Version: int |}
+  | DoorLocked of
+      {| DoorId: int
+         By: string
+         When: DateTime
+         Version: int |}
+  | DoorUnlocked of
+      {| DoorId: int
+         By: string
+         When: DateTime
+         Version: int |}
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers=""><script type="text/template">type State =
+    { DoorId: int
+      LockId: int Option
+      By: string
+      When: DateTime
+      Version: int }
+
+type Door =
+    | Initial
+    | Opened of State
+    | Closed of State
+    | Locked of State
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-2|3-9|10-16|17-23|24-30|31-37|38-44|45"><script type="text/template">let evolve (state: Door) (event: DoorEvent) : Door =
+  match state, event with
+  | Initial, DoorInstalled event ->
+      Opened
+          { DoorId = event.DoorId
+            LockId = None
+            By = event.By
+            When = event.When
+            Version = 1 }
+  | Opened door, DoorClosed event ->
+      Closed
+          { DoorId = event.DoorId
+            LockId = door.LockId
+            By = event.By
+            When = event.When
+            Version = event.Version }
+  | Closed door, DoorOpened event ->
+      Opened
+          { DoorId = event.DoorId
+            LockId = door.LockId
+            By = event.By
+            When = event.When
+            Version = event.Version }
+  | Closed door, DoorLocked event ->
+      Locked
+          { DoorId = event.DoorId
+            LockId = door.LockId
+            By = event.By
+            When = event.When
+            Version = event.Version }
+  | Locked door, DoorUnlocked event ->
+      Closed
+          { DoorId = event.DoorId
+            LockId = door.LockId
+            By = event.By
+            When = event.When
+            Version = event.Version }
+  | Closed door, LockInstalled event ->
+      Closed
+          { DoorId = door.DoorId
+            LockId = Some(event.LockId)
+            By = event.By
+            When = event.When
+            Version = event.Version }
+  | _ -> failwith "Not expected"
+          </script></code>
+        </pre>
+          <aside class="notes">
+            Maszyna stanów
+          </aside>
+      </section>
+
+      <section>
+          Testy z fold
+      </section>
+
+      <section>
+        <img data-src="./img/commands.png">
+      </section>
+
+      <section>
+        <pre>
+          <code class="language-fsharp" data-line-numbers="1-7|9-18|20-28|30-40"><script type="text/template">type DoorCommand =
+  | InstallDoor of InstallDoor
+  | InstallLock of InstallLock
+  | OpenDoor of OpenDoor
+  | CloseDoor of CloseDoor
+  | LockDoor of LockDoor
+  | UnlockDoor of UnlockDoor
+
+type InstallDoor =
+    {| DoorId: int
+       Who: string
+       When: DateTime |}
+
+type InstallLock =
+    {| DoorId: int
+       LockId: int
+       Who: string
+       When: DateTime |}
+
+type OpenDoor =
+    {| DoorId: int
+       Who: string
+       When: DateTime |}
+
+type CloseDoor =
+    {| DoorId: int
+       Who: string
+       When: DateTime |}
+
+type LockDoor =
+    {| DoorId: int
+       KeyId: int
+       Who: string
+       When: DateTime |}
+
+type UnlockDoor =
+    {| DoorId: int
+       KeyId: int
+       Who: string
+       When: DateTime |}
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <img data-src="./img/rules.png">
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers="1-10|12-24|26-37|39-43|45-59"><script type="text/template">let installDoor (cmd: InstallDoor) (door: Door) =
+    match door with
+    | Initial ->
+        Ok
+            [ DoorInstalled
+                  {| DoorId = cmd.DoorId
+                      By = cmd.Who
+                      When = cmd.When
+                      Version = 0 |} ]
+    | _ -> Error "Can't install door"
+
+let openDoor (cmd: OpenDoor) (door: Door) =
+    match door with
+    | Closed closed ->
+        if cmd.DoorId = closed.DoorId then
+            Ok
+                [ DoorOpened
+                      {| DoorId = closed.DoorId
+                          By = cmd.Who
+                          When = cmd.When
+                          Version = closed.Version + 1 |} ]
+        else
+            Error "Invalid command"
+    | _ -> Error "Invalid state"
+
+let installLock (cmd: InstallLock) (door: Door) =
+    let setLock (cmd: InstallLock) (state: State) =
+        if cmd.DoorId = state.DoorId then
+            Ok
+                [ LockInstalled
+                      {| DoorId = state.DoorId
+                          LockId = cmd.LockId
+                          By = cmd.Who
+                          When = cmd.When
+                          Version = state.Version + 1 |} ]
+        else
+            Error "Invalid command"
+
+    match door with
+    | Initial -> Error "Can't install lock"
+    | Opened state -> setLock cmd state
+    | Closed state -> setLock cmd state
+    | Locked state -> setLock cmd state
+
+let unlockDoor (cmd: UnlockDoor) (door: Door) =
+    match door with
+    | Locked locked ->
+        if cmd.DoorId <> locked.DoorId then
+            Error "Invalid command"
+        elif keyMatch cmd.KeyId locked.LockId then
+            Ok
+                [ DoorUnlocked
+                      {| DoorId = locked.DoorId
+                          By = cmd.Who
+                          When = cmd.When
+                          Version = locked.Version + 1 |} ]
+        else
+            Error "Invalid key"
+    | _ -> Error "Invalid command"
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers=""><script type="text/template">let decide (command: DoorCommand) (door: Door) =
+  match command with
+  | InstallDoor cmd -> installDoor cmd door
+  | OpenDoor cmd -> openDoor cmd door
+  | CloseDoor cmd -> closeDoor cmd door
+  | InstallLock cmd -> installLock cmd door
+  | LockDoor cmd -> lockDoor cmd door
+  | UnlockDoor cmd -> unlockDoor cmd door
+            </script></code>
+          </pre>
+        </section>
+
+        <section>
+          <img data-src="./img/decider.png" height="600">
+          <h1>Decider pattern</h1>
+        </section>
+
+        <section>
+          <pre>
+            <code class="language-fsharp" data-line-numbers=""><script type="text/template">
+            </script></code>
+          </pre>
+        </section>
 
         <section data-auto-animate>
           <h1>Jest dobrze?</h1>
@@ -760,7 +1015,7 @@ let ``failed to unlock door with wrong key`` () =
 				hash: true,
         controls: false,
         width: 1200,
-        height: 875,
+        height: 900,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]

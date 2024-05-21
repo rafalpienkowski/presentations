@@ -89,10 +89,10 @@
               <li>Zaspokojenie własnej ciekawości</li>
               <li>Z czym miewałem problemy</li>
               <li>Jak mocno FP różni się od OOP</li>
+              <li>Praktyka z Advent of Code</li>
               <li>Co mi się spodobało, a co niekoniecznie</li>
               <li>Dlaczego tak mało ludzi pracuje z FP na codzień?</li>
             </ul>
-            A to wszystko z mojej subiektywnej perspektywy, osoby pracującej z OOP na codzień
           </aside>
         </section>
 
@@ -118,10 +118,6 @@
             <img data-src="./img/intro.jpg" height="600">
             <img data-src="./img/intro2.jpg" height="350">
           </div>
-        </section>
-
-        <section>
-          Teraz zrozumiem jak ktoś teraz wyjdzie 🙈
         </section>
 
         <section data-auto-animate>
@@ -841,8 +837,8 @@ let ``evolve states`` () =
               Version = 5 }
 
     stream 
-      |> List.fold evolve initial 
-      |> should equal expected
+    |> List.fold evolve initial 
+    |> should equal expected
           </script></code>
         </pre>
         <aside class="notes">

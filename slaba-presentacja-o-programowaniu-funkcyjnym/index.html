@@ -27,19 +27,9 @@
           <aside class="notes">
             <ul>
               <li>About me</li>
+              <li>Link do prezentacji będzie na końcu</li>
             </ul>
           </aside>
-        </section>
-
-        <section data-auto-animate>
-          <img data-src="./img/pop1.png" height="600">
-        </section>
-
-        <section data-auto-animate>
-          <div>
-            <img data-src="./img/pop2.png" height="850">
-          </div>
-          <a href="https://www.statista.com/statistics/793628/worldwide-developer-survey-most-used-languages/">Źródło: Statista</a>
         </section>
 
         <section data-auto-animate>
@@ -84,30 +74,6 @@
               <li>Dlaczego tak mało ludzi pracuje z FP na codzień?</li>
             </ul>
           </aside>
-        </section>
-
-        <section data-auto-animate>
-          <div class="r-stack">
-            <img data-src="./img/intro.jpg" height="600">
-          </div>
-          <aside class="notes">
-            <li>
-              Pobawiłem się przykładami z Domain modelling 
-            </li>
-            <li>
-              Przerobiłem kawałem projektu integracji z dostawcą płatności
-            </li>
-            <li>
-              Itd.
-            </li>
-          </aside>
-        </section>
-
-        <section data-auto-animate>
-          <div class="r-stack">
-            <img data-src="./img/intro.jpg" height="600">
-            <img data-src="./img/intro2.jpg" height="350">
-          </div>
         </section>
 
         <section data-auto-animate>
@@ -461,9 +427,9 @@ let ``close then open door`` () =
 [<Fact>]
 let ``close then open door improved`` () =
   takeOpenedDoor
-    |> closeDoor now admin
-    |> openDoor later raf
-    |> should equal { Id = doorId; OpenedAt = later; OpenedBy = raf }
+  |> closeDoor now admin
+  |> openDoor later raf
+  |> should equal { Id = doorId; OpenedAt = later; OpenedBy = raf }
               </script>
               </code>
           </pre>
@@ -844,15 +810,7 @@ let ``evolve states`` () =
 
       <section>
         <pre>
-          <code class="language-fsharp" data-line-numbers="1-7|9-18|20-28|30-40"><script type="text/template">type DoorCommand =
-  | InstallDoor of InstallDoor
-  | InstallLock of InstallLock
-  | OpenDoor of OpenDoor
-  | CloseDoor of CloseDoor
-  | LockDoor of LockDoor
-  | UnlockDoor of UnlockDoor
-
-type InstallDoor =
+          <code class="language-fsharp" data-line-numbers="1-10|12-20|22-32|34-40"><script type="text/template">type InstallDoor =
     {| DoorId: int
        Who: string
        When: DateTime |}
@@ -884,6 +842,14 @@ type UnlockDoor =
        KeyId: int
        Who: string
        When: DateTime |}
+
+type DoorCommand =
+  | InstallDoor of InstallDoor
+  | InstallLock of InstallLock
+  | OpenDoor of OpenDoor
+  | CloseDoor of CloseDoor
+  | LockDoor of LockDoor
+  | UnlockDoor of UnlockDoor
             </script></code>
           </pre>
         </section>

@@ -19,6 +19,7 @@
 <body>
     <div class="reveal">
         <div class="slides">
+                <!--
             <section>
                 <h3>
                     Zapomniania sztuka prostych rozwiązań
@@ -28,7 +29,21 @@
                 </p>
                 <aside class="notes">
                     <ul>
-                        <li>About me</li>
+                        <li>Studia</li>
+                        <li>Kosz</li>
+                        <li>Szaszki</li>
+                        <li>Link to presentation</li>
+                    </ul>
+                </aside>
+            </section>
+-->
+
+            <section data-background="./img/intro.png" data-background-size="100%">
+                <aside class="notes">
+                    <ul>
+                        <li>Studia</li>
+                        <li>Kosz</li>
+                        <li>Szaszki</li>
                         <li>Link to presentation</li>
                     </ul>
                 </aside>
@@ -50,11 +65,10 @@
                 <aside class="notes">
                     <ul>
                         <li>
-                            Motivation
                             Prezentacja ma zmotywować do przemyśleń.
                         </li>
                         <li>
-                            Jeżeli kogoś uraziłem z góry przepraszam.
+                            Jeżeli kogoś uraziłem z góry przepraszam, mowie o sobie
                         </li>
                         <li>
                             Będzie troszkę inaczej niż zwykle
@@ -95,7 +109,7 @@
                 </aside>
             </section>
 
-            <section data-background="./img/arch.jpg">
+            <section data-background="./img/architecture.jpg" data-background-size="80%">
                 <aside class="notes">
                     <ul>
                         <li>17 - komponentów</li>
@@ -134,7 +148,7 @@
                 </aside>
             </section>
 
-            <section data-background="./img/yeah-science.gif" data-background-size="100%">
+            <section data-background="./img/learning.jpg" data-background-size="70%">
                 <aside class="notes">
                     <ul>
                         <li>Nauka czegoś nowego</li>
@@ -163,6 +177,9 @@
                     <ul>
                         <li>
                             Wzorce to tylko narzędzie
+                        </li>
+                        <li>
+                            GoF, pierwszy akapit przeznaczenia, 3 uzasadnienie
                         </li>
                         <li>
                             Do czego przydają się kolejki?
@@ -207,7 +224,7 @@
                 <aside class="notes">
                     <ul>
                         <li>
-                           Przyzwyczajenia -  Od zawsze tak robimy
+                            Przyzwyczajenia - Od zawsze tak robimy
                         </li>
                         <li>
                             Process (Scrum, Kanban, Waterfall)
@@ -254,6 +271,9 @@
                         <li>
                             Przedwczesne optymalizacja
                         </li>
+                        <li>
+                            Greg Young: the art of destroying software
+                        </li>
                     </ul>
                 </aside>
             </section>
@@ -267,9 +287,6 @@
                         <li>
                             Tzw. Efekt Utopionych Kosztów eng. sunk cost fallacy -> dlatego wybudowano Concorde, lata
                             60-te
-                        </li>
-                        <li>
-                            Greg Young: the art of destroying software
                         </li>
                     </ul>
                 </aside>
@@ -291,6 +308,12 @@
                         <li>
                             Vertical slices
                         </li>
+                        <li>
+                            Nie budujmy od razu całego systemu
+                        </li>
+                        <li>
+                            Małe wyspecjalizowane komponenty, CUPID - Dan North
+                        </li>
                     </ul>
                 </aside>
             </section>
@@ -305,7 +328,10 @@
                 </aside>
             </section>
 
-            <section data-background="./img/different.jpg" data-background-size="100%">
+            <section>
+                <video autoplay muted>
+                    <source src="./img/icecream.mp4" type="video/mp4">
+                </video>
                 <aside class="notes">
                     <ul>
                         <li>
@@ -354,7 +380,7 @@
                 </aside>
             </section>
 
-            <section data-background="./img/overengineering.png" data-background-size="100%">
+            <section data-background="./img/overengineering.jpg" data-background-size="70%">
                 <aside class="notes">
                     <ul>
                         <li>
@@ -369,6 +395,77 @@
 
             <section data-background="./img/my_reservation.png" data-background-size="120%">
             </section>
+<!--
+            <section stle="height: 90%">
+                <pre>
+                    <code>
+                        <script type="text/template" data-lang="csharp">[HttpPost("reserve")]
+public async Task<IActionResult> Reserve([FromBody] Request request)
+{
+    var jsonbData = JsonSerializer.Serialize(request.resources.Select(x =>
+            new { external_id = x.id, 
+                  last_changed = DateTime.Parse(x.last_changed), 
+                  x.owner, 
+                  x.external_system }));
+    const string query = "SELECT availability.reserve(@Data::jsonb);";
+
+    await using var command = datasource.CreateCommand(query);
+    command.Parameters.AddWithValue("@Data", NpgsqlTypes.NpgsqlDbType.Jsonb, 
+                            jsonbData);
+
+    var result = (int)(await command.ExecuteScalarAsync() ?? -1);
+    if (result == 0)
+    {
+        return Ok("Resource reserved");
+    } else {
+        return BadRequest("Unable to reserve resource");
+    }
+}</script>
+                    </code>
+                </pre>
+                <aside class="notes">
+                    <ul>
+                        <li>Prosta funkcja</li>
+                        <li>Optimistic locking</li>
+                    </ul>
+                </aside>
+            </section>
+
+
+            <section stle="height: 90%">
+                <pre>
+                    <code>
+                        <script type="text/template" data-lang="csharp">[HttpPost("reserve")]
+public async Task<IActionResult> Reserve([FromBody] Request request)
+{
+
+    //
+    // Put your business logic here
+    //
+
+    var jsonbData = JsonSerializer.Serialize(request.resources.Select(x =>
+            new { external_id = x.id, 
+                  last_changed = DateTime.Parse(x.last_changed), 
+                  x.owner, 
+                  x.external_system }));
+    const string query = "SELECT availability.reserve(@Data::jsonb);";
+
+    await using var command = datasource.CreateCommand(query);
+    command.Parameters.AddWithValue("@Data", NpgsqlTypes.NpgsqlDbType.Jsonb, 
+                            jsonbData);
+
+    var result = (int)(await command.ExecuteScalarAsync() ?? -1);
+    if (result == 0)
+    {
+        return Ok("Resource reserved");
+    } else {
+        return BadRequest("Unable to reserve resource");
+    }
+}</script>
+                    </code>
+                </pre>
+            </section>
+                -->
 
             <section data-background="./img/performance.png" data-background-size="100%">
             </section>
@@ -376,6 +473,7 @@
             <section data-background="./img/clint-eastwood-available.gif" data-background-size="55%">
             </section>
 
+                <!--
             <section data-background="./img/repeat.jpg" data-background-size="60%">
             </section>
 
@@ -388,17 +486,9 @@
             <section data-background="./img/knapsack.png" data-background-size="75%">
             </section>
 
-            <section data-background="./img/uber1.png" data-background-size="30%">
-            </section>
-
-            <section data-background="./img/uber2.png" data-background-size="30%">
-            </section>
-
-            <section data-background="./img/djikstra.png" data-background-size="75%">
-            </section>
-
             <section data-background="./img/grimace-clint-eastwood.gif" data-background-size="75%">
             </section>
+                -->
 
             <section>
                 <h1>Jedna rzecz do zapamiętania</h1>
@@ -437,9 +527,11 @@
                 </aside>
             </section>
 
+                <!--
             <section>
                 <h1>Zapraszam do dyskusji</h1>
             </section>
+                -->
 
             <section>
                 <h2>Linki</h2>
@@ -450,21 +542,29 @@
                             Terhorst-North</a></li>
                     <li><a href="https://adventofcode.com/">Advent of Code</a></li>
                     <li><a href="https://www.radicalsimpli.city/">Radical Simplicity</a></li>
+                    <li><a href="https://github.com/rafalpienkowski/simplicity-dotnet">Repo z kodem</a></li>
                 </ul>
             </section>
 
+            <!--
             <section>
                 <h2>Link do ankietki</h2>
                 <img data-src="./img/ankieta.png" height=600px>
             </section>
+-->
 
             <section>
                 <h2>Link do prezentacj</h2>
                 <img data-src="./img/link.png" height=600px>
             </section>
 
+                <!--
             <section data-auto-animate>
                 <h1>Dziękuję</h1>
+            </section>
+                -->
+
+            <section data-background="./img/vote.png" data-background-size="100%">
             </section>
 
             <script src="dist/reveal.js"></script>

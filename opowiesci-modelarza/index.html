@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Z pamiętnika modelarza">
+    <meta name="author" content="Rafal Pienkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Z pamiętnika modelarza</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css">
+    <link rel="stylesheet" href="plugin/highlight/vs.css">
+
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-auto-animate>
+                <h1>
+                    Opowieści modelarza
+                </h1>
+                <h2>
+                    Rafał Pieńkowski
+                </h2>
+                <aside class="notes">
+                    <ul>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-auto-animate>
+                <h1>
+                    Opowieści modelarza
+                </h1>
+                <h2>
+                    zamki, wysłannicy i współpraca
+                </h2>
+            </section>
+
+            <section>
+                <h1>Prolog</h1>
+            </section>
+
+            <section>
+                <h2>O mnie</h2>
+                <ul>
+                    <li class="fragment">Inżynier oprogramowania od 2012 r.</li>
+                    <li class="fragment">Obecnie pracuje dla M-Kopa</li>
+                    <li class="fragment">Zainteresowania: DDD, architektura oprogramowania, systemy rozproszone</li>
+                    <li class="fragment">Po pracy szachy</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>W obecnej pracy mam możliwość pracować z EDA i mikroserwisami</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>
+                    Cel prezentacji
+                </h1>
+                <aside class="notes">
+                    <ul>
+                        <li>Prezentacja ma zmotywować do przemyśleń.</li>
+                        <li>Pokazac mniej znane podejście do modelowania domeny.</li>
+                        <li>Nie ma na celu przekonania do konkretnego rozwiązania.</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>
+                    Rozdział 1 <div class="fragment"> Dlaczego!?!?</div>
+                </h1>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Wizyta na KanDDDynsky</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <div
+                    style="position: relative; width: 100%; height: 600px; display: flex; justify-content: center; align-items: center;">
+                    <img src="./img/ddd-blue-book-cover.jpg"
+                        style="position: absolute; transform: rotate(-8deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 25%; top: 10%;">
+                    <img src="./img/ddd-red-book-cover.jpg"
+                        style="position: absolute; transform: rotate(8deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 25%; top: 10%;">
+                    <img src="./img/ddd-distilled-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(-12deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 18%; top: 12%;">
+                    <img src="./img/ddd-learning-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(15deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 22%; top: 8%;">
+                    <img src="./img/ddd-patterns-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(-3deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 42%; top: 15%;">
+                </div>
+            </section>
+
+            <section data-background="./img/ddd-circle.png" data-background-size="80%">
+            </section>
+
+            <section>
+                <h1>Rozdział 2<div class="fragment">Zamki</div>
+            </section>
+
+            <section>
+                Rysunek zamku
+            </section>
+
+            <section>
+                Rysunek tego co w zamku najważniejsze (wyrocznia)
+                <aside class="notes">
+                    <ul>
+                        <li>W zamku jest wyrocznia - źródło prawdy</li>
+                        <li>Bronimy tego, co w zamku najważniejsze</li>
+                        <li>Jasna analogia do granicy</li>
+                        <li>Gwarancja transakcyjności wewnątrz zamku</li>
+                    </ul>
+            </section>
+
+            <section>
+                <h2>If you don’t trust your business partner you won’t share transactions with them"<h2>
+                        <h4>
+                            <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
+                                Autonomous Computing</a>
+                        </h4>
+            </section>
+
+            <section>
+                Interfejs dostępu do zamku powinien być dobrze przemyślany
+                Dodać informację o "A philosophy of Software Design" Johna Ousterhouta
+            </section>
+
+            <section>
+                    Nie chcemy udostpępniać wszystkiego co mamy w zamku.
+                </section>
+
+            <section data-background="./img/whole-in-the-wall.jpg" data-background-size="100%">
+            </section>
+
+            <section>
+                <h1>Rozdział 3<div class="fragment">Współpraca</div>
+            </section>
+
+            <section>
+                Nie żyjemy w próżni, w celu osiągnienia celu (biznesowego) potrzebujemy współpracować.
+            </section>
+
+            <section>
+                Wymieniamy niezmienne dane (identyfikatory, referencje) oraz komunikaty o zdarzeniach.
+                Dane te są wykorzystywane to wywołania naszego interfejsu zamkowego.
+            </section>
+
+            <section>
+            </section>
+
+            <section>
+                <h1>Rozdział 4<div class="fragment">Wysłannicy</div>
+            </section>
+
+            <section>
+                <h1>Kim jest wysłannik?</h1>
+                <aside class="notes">
+                    <ul>
+                        <li>"An emissary is a representative. It is person sent on a special mission as a diplomatic
+                            representative. Unlike an ambassador, an emissary has NO authority. They can only play
+                            nicely, suck-up, and try to ease the relationship."</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                Rozdział x: Przykład z życia
+            </section>
+
+            <section data-background="./img/seven-kingdoms.svg" data-background-size="contain"
+                data-background-repeat="no-repeat" data-background-size="100%">
+                <div
+                    style="position: absolute; bottom: 0; right: 0; padding: 20px 30px; font-size: 0.5em; opacity: 0.7;">
+                    Source: <a href="https://awoiaf.westeros.org/" target="_blank">A wiki of ice and fire</a>
+                </div>
+            </section>
+
+            <section data-background="./img/customer.jpg" data-background-size="100%">
+            </section>
+
+            <section>
+                <h1>Zapraszam do dyskusji</h1>
+            </section>
+
+            <section>
+                <h2>Linki</h2>
+                <ul>
+                    <li><a href="https://www.cidrdb.org/cidr2005/papers/P12.pdf">Data on the Outside versus Data
+                            on the
+                            Inside</a></li>
+                    <li><a href="https://pathelland.substack.com/p/autonomous-computing-short-version">Autonomous
+                            Computing (short version)</a></li>
+                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Any Other Name</a>
+                    </li>
+                    <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                </ul>
+            </section>
+
+            <!--
+            <section>
+                <h2>Link do ankietki</h2>
+                <img data-src="./img/ankieta.png" height=600px>
+            </section>
+-->
+
+            <section>
+                <h2>Link do prezentacj</h2>
+                <img data-src="./img/link.png" height=600px>
+            </section>
+
+            <section data-auto-animate>
+                <h1>Dziękuję</h1>
+            </section>
+
+            <script src="dist/reveal.js"></script>
+            <script src="plugin/notes/notes.js"></script>
+            <script src="plugin/markdown/markdown.js"></script>
+            <script src="plugin/highlight/highlight.js"></script>
+            <script>
+                // More info about initialization & config:
+                // - https://revealjs.com/initialization/
+                // - https://revealjs.com/config/
+                Reveal.initialize({
+                    hash: true,
+                    controls: false,
+                    width: 1200,
+                    height: 900,
+                    progress: false,
+
+                    // Learn about plugins: https://revealjs.com/plugins/
+                    plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+                });
+            </script>
+</body>
+
+</html>

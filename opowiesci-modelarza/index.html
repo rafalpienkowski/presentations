@@ -110,6 +110,12 @@
 
             <section>
                 Rysunek zamku
+                <aside class="notes">
+                    <ul>
+                        <li>Nie wierzymy obcym</li>
+                        <li>Wewnątrz zamku mamy pełną kontrolę nad danymi i logiką biznesową</li>
+                        <li>Dane na zewnątrz zamku są niezmienne</li>
+                    </ul>
             </section>
 
             <section>
@@ -117,18 +123,23 @@
                 <aside class="notes">
                     <ul>
                         <li>W zamku jest wyrocznia - źródło prawdy</li>
-                        <li>Bronimy tego, co w zamku najważniejsze</li>
+                        <li>Bronimy tego, co w zamku najważniejsze poprzez reguły i inne prawa</li>
                         <li>Jasna analogia do granicy</li>
-                        <li>Gwarancja transakcyjności wewnątrz zamku</li>
+                        <li>Gwarancja transakcyjności/kontekstu wewnątrz zamku</li>
                     </ul>
             </section>
 
             <section>
-                <h2>If you don’t trust your business partner you won’t share transactions with them"<h2>
+                <h2>If you don’t trust your business partner you won’t share transactions with them."<h2>
                         <h4>
                             <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
                                 Autonomous Computing</a>
                         </h4>
+                        <aside class="notes">
+                            <ul>
+                                <li>Zamek jest autonomiczny</li>
+                                <li>Dane na zewnątrz zamku są niezmienne</li>
+                            </ul>
             </section>
 
             <section>
@@ -137,8 +148,24 @@
             </section>
 
             <section>
-                    Nie chcemy udostpępniać wszystkiego co mamy w zamku.
-                </section>
+                Przykład: Bankomat (dodać rysunek)
+                <aside class="notes">
+                    <ul>
+                        <li>Zdefiniowane operacje</li>
+                        <li>Nie udostępniamy połączenia do bazy danych</li>
+                        <li>Potrzebny jest PIN</li>
+                    </ul>
+            </section>
+
+            <section>
+                Mozna przesunać do sekcji o współpracy.
+                Słabo jest opisane, który zamek nadaje protokół komunikacji.
+                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
+            </section>
+
+            <section>
+                Nie chcemy udostpępniać wszystkiego co mamy w zamku.
+            </section>
 
             <section data-background="./img/whole-in-the-wall.jpg" data-background-size="100%">
             </section>
@@ -149,14 +176,73 @@
 
             <section>
                 Nie żyjemy w próżni, w celu osiągnienia celu (biznesowego) potrzebujemy współpracować.
+                Dawniej biznes odbywał się przy pomocy atramentu i papieru (można dodać rysunek długopisu i papieru).
+                <aside class="notes">
+                    <ul>
+                        <li>Przykład z życia: wnioski urzędowe, listy przewozowe, faktury</li>
+                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu biznesowego</li>
+                    </ul>
+            </section>
+
+            <section>
+                Każdy druk miał swój unikalny number/sugnaturę, która pozwalała na jego identyfikację.
+                <aside class="notes">
+                    <ul>
+                        <li>Sygnatura była niezmienna</li>
+                    </ul>
+                </aside>
             </section>
 
             <section>
                 Wymieniamy niezmienne dane (identyfikatory, referencje) oraz komunikaty o zdarzeniach.
                 Dane te są wykorzystywane to wywołania naszego interfejsu zamkowego.
+                <aside class="notes">
+                    <ul>
+                        <li>Identyfiktor jest niezmienny</li>
+                        <li>Może być naturalny lub wygenerowany</li>
+                    </ul>
             </section>
 
             <section>
+                Współpraca to wiadomości wysyłane pomiędzy zamkami w celu wykonania operacji biznesowej.
+                Kolaboracja jest offline.
+            </section>
+
+            <section>
+                Współpraca unika transakcji rozproszonych.
+                <aside class="notes">
+                    <ul>
+                        <li>Transakcje rozproszone są kosztowne i zawodzne</li>
+                        <li>Współpraca opiera się na asynchroniczności</li>
+                        <li>Wchodzimy w świat eventual consistency</li>
+                        <li>Wzorce typu rezerwacja zasobu, dostpępność itp.</li>
+                    </ul>
+            </section>
+
+            <section>
+                Wchodzą wyzwania związane z asynchronicznością:
+                <ul>
+                    <li>Idempotentność</li>
+                    <li>Obsługa błędów</li>
+                    <li>Kolejność wiadomości</li>
+                </ul>
+            </section>
+
+            <section>
+                Dane na zewnątrz zamku są:
+                <ul>
+                    <li>Niezmienne</li>
+                    <li>Nie są częścią transakcji</li>
+                    <li>Mają identyfikator</li>
+                    <li>Mogą być wersjonowane (bo jest to obecnie tanie)</li>
+                </ul>
+                <aside class="notes">
+                    Ciemna strona niezmienności:
+                    <ul>
+                        <li>Dane są zapisywane w wielu miejscach</li>
+                        <li>Denormalizacja => smaczna ale tuczy</li>
+                        <li>Poza zamkiem to "tylko" cache</li>
+                    </ul>
             </section>
 
             <section>
@@ -172,6 +258,30 @@
                             nicely, suck-up, and try to ease the relationship."</li>
                     </ul>
                 </aside>
+            </section>
+
+            <section>
+                Zamek nie ufa wysłannikowi. To użytkownik wysłannika decyduje co zrobić z danymi oraz authoryzuje
+                operacje.
+            </section>
+
+            <section>
+                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale po wyborze
+                oferty to klient musiał sam złożyć wniosek w banku)
+            </section>
+
+            <section>
+                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników (klientów pocztowych
+                e.g. telefon, przeglądarka, program pocztowy)
+            </section>
+
+            <section>
+                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów.
+            </section>
+
+            <section>
+                Wysłannicy mogą pracować offline. Mogą buforować dane podczas braku łączności co wspiera
+                asynchroniczność.
             </section>
 
             <section>
@@ -203,17 +313,19 @@
                             Computing (short version)</a></li>
                     <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Any Other Name</a>
                     </li>
-                    <li><a href=""></a></li>
-                    <li><a href=""></a></li>
+                    <li><a href="https://www.cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf">Immutability Changes
+                            Everything</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context Mapping - Michael
+                            Plöd - DDD Europe 2022</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive - Michael Plöd
+                            - KanDDDinsky 2019</a></li>
                 </ul>
             </section>
 
-            <!--
             <section>
                 <h2>Link do ankietki</h2>
                 <img data-src="./img/ankieta.png" height=600px>
             </section>
--->
 
             <section>
                 <h2>Link do prezentacj</h2>

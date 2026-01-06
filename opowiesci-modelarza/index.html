@@ -46,13 +46,15 @@
             </section>
 
             <section>
-                <h2>O mnie</h2>
-                <ul>
-                    <li class="fragment">Inżynier oprogramowania od 2012 r.</li>
-                    <li class="fragment">Obecnie pracuje dla M-Kopa</li>
-                    <li class="fragment">Zainteresowania: DDD, architektura oprogramowania, systemy rozproszone</li>
-                    <li class="fragment">Po pracy szachy</li>
-                </ul>
+                <div style="position: relative; width: 100%; height: 700px;">
+                    <h2 style="position: absolute; left: 50%; transform: translateX(-50%); top: 5%;">O mnie</h2>
+                    <img src="./img/m-kopa.png"
+                        style="position: absolute; transform: rotate(-8deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 5%; top: 25%; z-index: 2;">
+                    <img src="./img/datacenter_servers.jpg"
+                        style="position: absolute; transform: rotate(8deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 5%; top: 25%; z-index: 2;">
+                    <img src="./img/chees.jpeg"
+                        style="position: absolute; transform: translateX(-50%) rotate(-3deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 50%; bottom: -10%; z-index: 1;">
+                </div>
                 <aside class="notes">
                     <ul>
                         <li>W obecnej pracy mam możliwość pracować z EDA i mikroserwisami</li>
@@ -105,11 +107,15 @@
             </section>
 
             <section>
+                Potęga metafory (metafory w naszym życiu)
+            </section>
+
+            <section>
                 <h1>Rozdział 2<div class="fragment">Zamki</div>
             </section>
 
             <section>
-                Rysunek zamku
+                Rysunek zamku. Zamek to może być moduł, aplikacja, jeden lub więcej współpracujących mikroserwisów itp.
                 <aside class="notes">
                     <ul>
                         <li>Nie wierzymy obcym</li>
@@ -130,6 +136,10 @@
             </section>
 
             <section>
+                Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy.
+            </section>
+
+            <section>
                 <h2>If you don’t trust your business partner you won’t share transactions with them."<h2>
                         <h4>
                             <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
@@ -143,6 +153,7 @@
             </section>
 
             <section>
+                Jedyna opcja współpracy z zamkiem jest poprzez wysłanie wiadomości.
                 Interfejs dostępu do zamku powinien być dobrze przemyślany
                 Dodać informację o "A philosophy of Software Design" Johna Ousterhouta
             </section>
@@ -195,6 +206,10 @@
 
             <section>
                 Wymieniamy niezmienne dane (identyfikatory, referencje) oraz komunikaty o zdarzeniach.
+
+                Dodać rysunek tego jak tani jest storage obecnie - opowiedziec jaki to mialo wpływ na architekturę
+                systemów
+
                 Dane te są wykorzystywane to wywołania naszego interfejsu zamkowego.
                 <aside class="notes">
                     <ul>
@@ -205,11 +220,12 @@
 
             <section>
                 Współpraca to wiadomości wysyłane pomiędzy zamkami w celu wykonania operacji biznesowej.
-                Kolaboracja jest offline.
+                Kolaboracja jest offline => bardzo ważne.
             </section>
 
             <section>
-                Współpraca unika transakcji rozproszonych.
+                Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność, skalowalność.
+                Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.
                 <aside class="notes">
                     <ul>
                         <li>Transakcje rozproszone są kosztowne i zawodzne</li>
@@ -220,11 +236,14 @@
             </section>
 
             <section>
-                Wchodzą wyzwania związane z asynchronicznością:
+                Wchodzą wyzwania związane z asynchronicznością (zwłaszcza w skomplikowanych procesach biznesowych):
                 <ul>
                     <li>Idempotentność</li>
                     <li>Obsługa błędów</li>
                     <li>Kolejność wiadomości</li>
+                    <li>Monitorowanie</li>
+                    <li>Wersjonowanie</li>
+                    <li>Itp.</li>
                 </ul>
             </section>
 
@@ -261,8 +280,17 @@
             </section>
 
             <section>
-                Zamek nie ufa wysłannikowi. To użytkownik wysłannika decyduje co zrobić z danymi oraz authoryzuje
+                Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem. To użytkownik wysłannika decyduje co
+                zrobić z danymi oraz authoryzuje
                 operacje.
+
+                Wysłannik ma dane per klient.
+            </section>
+
+            <section>
+                Wysłannik może posiadać kopię danych klienta, które są znaczące z punktu widzenia procesu.
+                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów apart czy innej
+                ikea.
             </section>
 
             <section>
@@ -275,18 +303,37 @@
                 e.g. telefon, przeglądarka, program pocztowy)
             </section>
 
-            <section>
-                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów.
-            </section>
 
             <section>
                 Wysłannicy mogą pracować offline. Mogą buforować dane podczas braku łączności co wspiera
-                asynchroniczność.
+                asynchroniczność, natomiast musi być obsłużone przez programistę. (zwykły bufor na wiadomości nie
+                wystarczy)
+
+                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest zapisywanie danych
+                po obu stronach (zamek i wysłannik).
             </section>
 
             <section>
-                Rozdział x: Przykład z życia
+                Wewnątrz zamku operujemy za prowadzenie procesu odpowiedzialne są aktywności (ang. activities), któkt
+                operują na zasobach (ang. resources) => np. dobra materialne, usługi itp.
+
+                Aktywność może być wyzwalana przez:
+                - wenętrzną wiadomość (np. zdarzenie domenowe)
+                - zewnętrznla wiadomość (np. zdarzenie procesowe z wysłannika)
+                - upływ czasu (np. timeout)
+
+                Aktywność nie trwa wiecznie. Może być przerwana, wznowiona itp.
             </section>
+
+            <section>
+            </section>
+
+            <section>
+                Różne:
+                <ul>
+                    <li>Przeważnie wewnątrz zamku idziemy w orkiestrację, a poza w choreografię</li>
+            </section>
+
 
             <section data-background="./img/seven-kingdoms.svg" data-background-size="contain"
                 data-background-repeat="no-repeat" data-background-size="100%">
@@ -297,6 +344,19 @@
             </section>
 
             <section data-background="./img/customer.jpg" data-background-size="100%">
+            </section>
+
+            <section>
+                <h1>Epilog</h1>
+                To jest wzorzec do tworzenia skalowalnych systemów rozproszonych.
+                Jak autonomia wspiera architekturę (nie tylko mikroserwisową).
+
+                "An event is an immutable set of attributes with an identity."
+                "Realiable systems have alwasy been built out of unreliable components."
+            </section>
+
+            <section>
+                "All models are wrong, but some are useful." - George E.P. Box
             </section>
 
             <section>
@@ -315,6 +375,8 @@
                     </li>
                     <li><a href="https://www.cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf">Immutability Changes
                             Everything</a></li>
+                    <li><a href="https://arxiv.org/pdf/0909.1788">Building on Quicksand</a></li>
+                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Another Name</a></li>
                     <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context Mapping - Michael
                             Plöd - DDD Europe 2022</a></li>
                     <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive - Michael Plöd

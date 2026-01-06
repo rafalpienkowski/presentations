@@ -14,6 +14,16 @@
     <link rel="stylesheet" href="dist/theme/white.css">
     <link rel="stylesheet" href="plugin/highlight/vs.css">
 
+    <style>
+        .reveal .slide-background {
+            box-shadow: none !important;
+        }
+        .reveal .slides section {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -125,61 +135,66 @@
             </section>
 
             <section>
-                    <h1>Rozdział 2</h1>
+                <h1>Rozdział 2</h1>
             </section>
 
-            <section>
-                Rysunek zamku. Zamek to może być moduł, aplikacja, jeden lub więcej współpracujących mikroserwisów itp.
+            <section data-background="./img/castle.png" data-background-size="80%">
                 <aside class="notes">
                     <ul>
+                        <li>Zamek to może być moduł, aplikacja, jeden lub więcej współpracujących mikroserwisów itp.
+                        </li>
                         <li>Nie wierzymy obcym</li>
                         <li>Wewnątrz zamku mamy pełną kontrolę nad danymi i logiką biznesową</li>
                         <li>Dane na zewnątrz zamku są niezmienne</li>
                     </ul>
+                </aside>
             </section>
 
-            <section>
-                Rysunek tego co w zamku najważniejsze (wyrocznia)
+            <section data-background="./img/oracle.png" data-background-size="80%">
                 <aside class="notes">
                     <ul>
                         <li>W zamku jest wyrocznia - źródło prawdy</li>
                         <li>Bronimy tego, co w zamku najważniejsze poprzez reguły i inne prawa</li>
                         <li>Jasna analogia do granicy</li>
                         <li>Gwarancja transakcyjności/kontekstu wewnątrz zamku</li>
+                        <li>Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy</li>
                     </ul>
+                </aside>
             </section>
 
             <section>
-                Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy.
+                <h2><em>If you don't trust your business partner you won't share transactions with them."</em></h2>
+                <h4>
+                    <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
+                        Autonomous Computing</a>
+                </h4>
+                <aside class="notes">
+                    <ul>
+                        <li>Zamek jest autonomiczny</li>
+                        <li>Dane na zewnątrz zamku są niezmienne</li>
+                    </ul>
+                </aside>
             </section>
 
-            <section>
-                <h2>If you don’t trust your business partner you won’t share transactions with them."<h2>
-                        <h4>
-                            <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
-                                Autonomous Computing</a>
-                        </h4>
-                        <aside class="notes">
-                            <ul>
-                                <li>Zamek jest autonomiczny</li>
-                                <li>Dane na zewnątrz zamku są niezmienne</li>
-                            </ul>
+            <section data-background="./img/a_philosophy_of_software_design.jpg" data-background-size="20%">
+                <aside class="notes">
+                    <ul>
+                        <li>Jedyna opcja współpracy z zamkiem jest poprzez wysłanie wiadomości</li>
+                        <li>Interfejs dostępu do zamku powinien być dobrze przemyślany</li>
+                </aside>
             </section>
 
-            <section>
-                Jedyna opcja współpracy z zamkiem jest poprzez wysłanie wiadomości.
-                Interfejs dostępu do zamku powinien być dobrze przemyślany
-                Dodać informację o "A philosophy of Software Design" Johna Ousterhouta
-            </section>
-
-            <section>
-                Przykład: Bankomat (dodać rysunek)
+            <section data-background="./img/atm.jpg" data-background-size="40%">
+                <div style="position: absolute; bottom: 0; right: 0; padding: 20px 30px; font-size: 0.5em; opacity: 0.7;">
+                    Source: <a href="https://unsplash.com/photos/red-and-white-atm-machine-zJ9ECEUR_GE" target="_blank">Unsplash</a>
+                </div>
                 <aside class="notes">
                     <ul>
                         <li>Zdefiniowane operacje</li>
                         <li>Nie udostępniamy połączenia do bazy danych</li>
                         <li>Potrzebny jest PIN</li>
                     </ul>
+                </aside>
             </section>
 
             <section>

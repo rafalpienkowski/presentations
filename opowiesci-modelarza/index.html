@@ -18,9 +18,15 @@
         .reveal .slide-background {
             box-shadow: none !important;
         }
-        .reveal .slides section {
-            height: 100%;
-            width: 100%;
+
+        .source-attribution {
+            position: fixed !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            padding: 20px 30px;
+            font-size: 0.5em;
+            opacity: 0.7;
+            z-index: 100;
         }
     </style>
 
@@ -61,6 +67,7 @@
                         <li>Pokazac mniej znane podejście do modelowania domeny</li>
                         <li>Nie ma na celu przekonania do konkretnego rozwiązania</li>
                         <li>Zobaczymy potęgę metafory ("Metafory w naszym życiu")</li>
+                        <li>Ankieta DDD</li>
                     </ul>
                 </aside>
             </section>
@@ -176,17 +183,24 @@
                 </aside>
             </section>
 
-            <section data-background="./img/a_philosophy_of_software_design.jpg" data-background-size="20%">
+            <section data-background="./img/whole-in-the-wall.jpg" data-background-size="100%">
+                <div class="fragment fade-up"
+                    style="position: relative; width: 100%; height: 800px; display: flex; justify-content: center; align-items: center;">
+                    <img src="./img/a_philosophy_of_software_design.jpg"
+                        style="position: absolute; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
                 <aside class="notes">
                     <ul>
                         <li>Jedyna opcja współpracy z zamkiem jest poprzez wysłanie wiadomości</li>
                         <li>Interfejs dostępu do zamku powinien być dobrze przemyślany</li>
+                        <li>Nie chcemy udostpępniać wszystkiego co mamy wewnątrz zamku</li>
                 </aside>
             </section>
 
             <section data-background="./img/atm.jpg" data-background-size="40%">
-                <div style="position: absolute; bottom: 0; right: 0; padding: 20px 30px; font-size: 0.5em; opacity: 0.7;">
-                    Source: <a href="https://unsplash.com/photos/red-and-white-atm-machine-zJ9ECEUR_GE" target="_blank">Unsplash</a>
+                <div class="source-attribution">
+                    Source: <a href="https://unsplash.com/photos/red-and-white-atm-machine-zJ9ECEUR_GE"
+                        target="_blank">Unsplash</a>
                 </div>
                 <aside class="notes">
                     <ul>
@@ -197,17 +211,7 @@
                 </aside>
             </section>
 
-            <section>
-                Mozna przesunać do sekcji o współpracy.
-                Słabo jest opisane, który zamek nadaje protokół komunikacji.
-                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
-            </section>
-
-            <section>
-                Nie chcemy udostpępniać wszystkiego co mamy w zamku.
-            </section>
-
-            <section data-background="./img/whole-in-the-wall.jpg" data-background-size="100%">
+            <section data-background="./img/castle2.png" data-background-size="100%">
             </section>
 
             <section>
@@ -216,11 +220,13 @@
 
             <section>
                 Nie żyjemy w próżni, w celu osiągnienia celu (biznesowego) potrzebujemy współpracować.
-                Dawniej biznes odbywał się przy pomocy atramentu i papieru (można dodać rysunek długopisu i papieru).
+                Dawniej biznes odbywał się przy pomocy atramentu i papieru (można dodać rysunek długopisu i
+                papieru).
                 <aside class="notes">
                     <ul>
                         <li>Przykład z życia: wnioski urzędowe, listy przewozowe, faktury</li>
-                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu biznesowego</li>
+                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu biznesowego
+                        </li>
                     </ul>
             </section>
 
@@ -245,6 +251,11 @@
                         <li>Identyfiktor jest niezmienny</li>
                         <li>Może być naturalny lub wygenerowany</li>
                     </ul>
+            </section>
+
+            <section>
+                Słabo jest opisane, który zamek nadaje protokół komunikacji.
+                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
             </section>
 
             <section>
@@ -323,12 +334,14 @@
             </section>
 
             <section>
-                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale po wyborze
+                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale po
+                wyborze
                 oferty to klient musiał sam złożyć wniosek w banku)
             </section>
 
             <section>
-                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników (klientów pocztowych
+                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników (klientów
+                pocztowych
                 e.g. telefon, przeglądarka, program pocztowy)
             </section>
 
@@ -338,12 +351,14 @@
                 asynchroniczność, natomiast musi być obsłużone przez programistę. (zwykły bufor na wiadomości nie
                 wystarczy)
 
-                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest zapisywanie danych
+                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest zapisywanie
+                danych
                 po obu stronach (zamek i wysłannik).
             </section>
 
             <section>
-                Wewnątrz zamku operujemy za prowadzenie procesu odpowiedzialne są aktywności (ang. activities), któkt
+                Wewnątrz zamku operujemy za prowadzenie procesu odpowiedzialne są aktywności (ang. activities),
+                któkt
                 operują na zasobach (ang. resources) => np. dobra materialne, usługi itp.
 
                 Aktywność może być wyzwalana przez:
@@ -406,9 +421,11 @@
                             Everything</a></li>
                     <li><a href="https://arxiv.org/pdf/0909.1788">Building on Quicksand</a></li>
                     <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Another Name</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context Mapping - Michael
+                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context Mapping -
+                            Michael
                             Plöd - DDD Europe 2022</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive - Michael Plöd
+                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive - Michael
+                            Plöd
                             - KanDDDinsky 2019</a></li>
                 </ul>
             </section>

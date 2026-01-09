@@ -261,24 +261,22 @@
 
             <section data-background="./img/collaboration.png" data-background-size="90%">
 
-                <img src="./img/message.png" class="fragment"
-                        style="height: 200px; z-index: 2;">
+                <img src="./img/message.png" class="fragment" style="height: 200px; z-index: 2;">
                 <aside class="notes">
                     <ul>
                         <li>Kolaboracja jest offline => bardzo ważne</li>
+                        <li>Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
+                            skalowalność</li>
                     </ul>
                 </aside>
             </section>
 
-            <section>
-                Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
-                skalowalność.
-                Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.
+            <section data-background="./img/eventual_consistency.png" data-background-size="90%">
+
                 <aside class="notes">
                     <ul>
+                        <li>Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.</li>
                         <li>Transakcje rozproszone są kosztowne i zawodzne</li>
-                        <li>Współpraca opiera się na asynchroniczności</li>
-                        <li>Wchodzimy w świat eventual consistency</li>
                         <li>Wzorce typu rezerwacja zasobu, dostpępność itp.</li>
                     </ul>
             </section>

@@ -211,60 +211,68 @@
                 </aside>
             </section>
 
-            <section data-background="./img/castle2.png" data-background-size="100%">
+            <section data-background="./img/castle.png" data-background-size="80%">
+            </section>
+
+            <section data-auto-animate data-background="./img/castle2.png" data-background-size="100%"
+                data-background-position="center center">
             </section>
 
             <section>
                 <h1>Rozdział 3<div class="fragment">Współpraca</div>
+                    <aside class="notes">
+                        <ul>
+                            <li>Biznes == długopis i papieru</li>
+                            </li>
+                        </ul>
+                    </aside>
             </section>
 
-            <section>
-                Nie żyjemy w próżni, w celu osiągnienia celu (biznesowego) potrzebujemy współpracować.
-                Dawniej biznes odbywał się przy pomocy atramentu i papieru (można dodać rysunek długopisu i
-                papieru).
+            <section data-background="./img/pit.png" data-background-size="40%">
                 <aside class="notes">
                     <ul>
                         <li>Przykład z życia: wnioski urzędowe, listy przewozowe, faktury</li>
-                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu biznesowego
+                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu
+                            biznesowego
                         </li>
                     </ul>
+                </aside>
             </section>
 
-            <section>
-                Każdy druk miał swój unikalny number/sugnaturę, która pozwalała na jego identyfikację.
+            <section data-background="./img/pit.png" data-background-size="80%" data-background-position="center top">
                 <aside class="notes">
                     <ul>
+                        <li>Każdy druk miał swój unikalny i niezmienny number/sugnaturę, która pozwalała na jego
+                            identyfikację</li>
                         <li>Sygnatura była niezmienna</li>
+                        <li>Sygnatura być naturalna lub wygenerowana</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/ikea.jpg" data-background-size="40%">
+                <aside class="notes">
+                    <ul>
+                        <li>Dane potrzebne do wypesłnienia "interfajsu zamkowego"</li>
+                        <li>Referencje do danych poza zamkiem, katalog ikea</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/collaboration.png" data-background-size="90%">
+
+                <img src="./img/message.png" class="fragment"
+                        style="height: 200px; z-index: 2;">
+                <aside class="notes">
+                    <ul>
+                        <li>Kolaboracja jest offline => bardzo ważne</li>
                     </ul>
                 </aside>
             </section>
 
             <section>
-                Wymieniamy niezmienne dane (identyfikatory, referencje) oraz komunikaty o zdarzeniach.
-
-                Dodać rysunek tego jak tani jest storage obecnie - opowiedziec jaki to mialo wpływ na architekturę
-                systemów
-
-                Dane te są wykorzystywane to wywołania naszego interfejsu zamkowego.
-                <aside class="notes">
-                    <ul>
-                        <li>Identyfiktor jest niezmienny</li>
-                        <li>Może być naturalny lub wygenerowany</li>
-                    </ul>
-            </section>
-
-            <section>
-                Słabo jest opisane, który zamek nadaje protokół komunikacji.
-                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
-            </section>
-
-            <section>
-                Współpraca to wiadomości wysyłane pomiędzy zamkami w celu wykonania operacji biznesowej.
-                Kolaboracja jest offline => bardzo ważne.
-            </section>
-
-            <section>
-                Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność, skalowalność.
+                Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
+                skalowalność.
                 Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.
                 <aside class="notes">
                     <ul>
@@ -276,7 +284,8 @@
             </section>
 
             <section>
-                Wchodzą wyzwania związane z asynchronicznością (zwłaszcza w skomplikowanych procesach biznesowych):
+                Wchodzą wyzwania związane z asynchronicznością (zwłaszcza w skomplikowanych procesach
+                biznesowych):
                 <ul>
                     <li>Idempotentność</li>
                     <li>Obsługa błędów</li>
@@ -305,6 +314,11 @@
             </section>
 
             <section>
+                Słabo jest opisane, który zamek nadaje protokół komunikacji.
+                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
+            </section>
+
+            <section>
                 <h1>Rozdział 4<div class="fragment">Wysłannicy</div>
             </section>
 
@@ -312,15 +326,18 @@
                 <h1>Kim jest wysłannik?</h1>
                 <aside class="notes">
                     <ul>
-                        <li>"An emissary is a representative. It is person sent on a special mission as a diplomatic
-                            representative. Unlike an ambassador, an emissary has NO authority. They can only play
+                        <li>"An emissary is a representative. It is person sent on a special mission as a
+                            diplomatic
+                            representative. Unlike an ambassador, an emissary has NO authority. They can
+                            only play
                             nicely, suck-up, and try to ease the relationship."</li>
                     </ul>
                 </aside>
             </section>
 
             <section>
-                Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem. To użytkownik wysłannika decyduje co
+                Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem. To użytkownik wysłannika
+                decyduje co
                 zrobić z danymi oraz authoryzuje
                 operacje.
 
@@ -329,18 +346,21 @@
 
             <section>
                 Wysłannik może posiadać kopię danych klienta, które są znaczące z punktu widzenia procesu.
-                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów apart czy innej
+                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów apart
+                czy innej
                 ikea.
             </section>
 
             <section>
-                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale po
+                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale
+                po
                 wyborze
                 oferty to klient musiał sam złożyć wniosek w banku)
             </section>
 
             <section>
-                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników (klientów
+                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników
+                (klientów
                 pocztowych
                 e.g. telefon, przeglądarka, program pocztowy)
             </section>
@@ -348,16 +368,19 @@
 
             <section>
                 Wysłannicy mogą pracować offline. Mogą buforować dane podczas braku łączności co wspiera
-                asynchroniczność, natomiast musi być obsłużone przez programistę. (zwykły bufor na wiadomości nie
+                asynchroniczność, natomiast musi być obsłużone przez programistę. (zwykły bufor na
+                wiadomości nie
                 wystarczy)
 
-                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest zapisywanie
+                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest
+                zapisywanie
                 danych
                 po obu stronach (zamek i wysłannik).
             </section>
 
             <section>
-                Wewnątrz zamku operujemy za prowadzenie procesu odpowiedzialne są aktywności (ang. activities),
+                Wewnątrz zamku operujemy za prowadzenie procesu odpowiedzialne są aktywności (ang.
+                activities),
                 któkt
                 operują na zasobach (ang. resources) => np. dobra materialne, usługi itp.
 
@@ -383,7 +406,8 @@
                 data-background-repeat="no-repeat" data-background-size="100%">
                 <div
                     style="position: absolute; bottom: 0; right: 0; padding: 20px 30px; font-size: 0.5em; opacity: 0.7;">
-                    Source: <a href="https://awoiaf.westeros.org/" target="_blank">A wiki of ice and fire</a>
+                    Source: <a href="https://awoiaf.westeros.org/" target="_blank">A wiki of ice and
+                        fire</a>
                 </div>
             </section>
 
@@ -410,21 +434,26 @@
             <section>
                 <h2>Linki</h2>
                 <ul>
-                    <li><a href="https://www.cidrdb.org/cidr2005/papers/P12.pdf">Data on the Outside versus Data
+                    <li><a href="https://www.cidrdb.org/cidr2005/papers/P12.pdf">Data on the Outside versus
+                            Data
                             on the
                             Inside</a></li>
                     <li><a href="https://pathelland.substack.com/p/autonomous-computing-short-version">Autonomous
                             Computing (short version)</a></li>
                     <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Any Other Name</a>
                     </li>
-                    <li><a href="https://www.cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf">Immutability Changes
+                    <li><a href="https://www.cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf">Immutability
+                            Changes
                             Everything</a></li>
                     <li><a href="https://arxiv.org/pdf/0909.1788">Building on Quicksand</a></li>
-                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Another Name</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context Mapping -
+                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Another Name</a>
+                    </li>
+                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context
+                            Mapping -
                             Michael
                             Plöd - DDD Europe 2022</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive - Michael
+                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive -
+                            Michael
                             Plöd
                             - KanDDDinsky 2019</a></li>
                 </ul>

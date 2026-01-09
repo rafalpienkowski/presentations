@@ -246,6 +246,7 @@
                             identyfikację</li>
                         <li>Sygnatura była niezmienna</li>
                         <li>Sygnatura być naturalna lub wygenerowana</li>
+                        <li>Druki są wersjonowane</li>
                     </ul>
                 </aside>
             </section>
@@ -255,6 +256,12 @@
                     <ul>
                         <li>Dane potrzebne do wypesłnienia "interfajsu zamkowego"</li>
                         <li>Referencje do danych poza zamkiem, katalog ikea</li>
+                        Ciemna strona niezmienności:
+                        <ul>
+                            <li>Dane są zapisywane w wielu miejscach</li>
+                            <li>Denormalizacja => smaczna ale tuczy</li>
+                            <li>Poza zamkiem to "tylko" cache</li>
+                        </ul>
                     </ul>
                 </aside>
             </section>
@@ -278,102 +285,88 @@
                         <li>Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.</li>
                         <li>Transakcje rozproszone są kosztowne i zawodzne</li>
                         <li>Wzorce typu rezerwacja zasobu, dostpępność itp.</li>
+                        <li>Dla biznesu to najmniejszy problem</li>
                     </ul>
+                </aside>
             </section>
 
-            <section>
-                Wchodzą wyzwania związane z asynchronicznością (zwłaszcza w skomplikowanych procesach
-                biznesowych):
-                <ul>
-                    <li>Idempotentność</li>
-                    <li>Obsługa błędów</li>
-                    <li>Kolejność wiadomości</li>
-                    <li>Monitorowanie</li>
-                    <li>Wersjonowanie</li>
-                    <li>Itp.</li>
-                </ul>
-            </section>
-
-            <section>
-                Dane na zewnątrz zamku są:
-                <ul>
-                    <li>Niezmienne</li>
-                    <li>Nie są częścią transakcji</li>
-                    <li>Mają identyfikator</li>
-                    <li>Mogą być wersjonowane (bo jest to obecnie tanie)</li>
-                </ul>
+            <section data-background="./img/complex.jpg" data-background-size="40%">
                 <aside class="notes">
-                    Ciemna strona niezmienności:
                     <ul>
-                        <li>Dane są zapisywane w wielu miejscach</li>
-                        <li>Denormalizacja => smaczna ale tuczy</li>
-                        <li>Poza zamkiem to "tylko" cache</li>
+                        <li>Idempotentność</li>
+                        <li>Obsługa błędów</li>
+                        <li>Kolejność wiadomości</li>
+                        <li>Monitorowanie</li>
+                        <li>Wersjonowanie</li>
+                        <li>Itp.</li>
                     </ul>
+                </aside>
             </section>
 
-            <section>
-                Słabo jest opisane, który zamek nadaje protokół komunikacji.
-                Tutaj DDD (context map) może pomóc. Link do Michael Plod.
+            <section data-background="./img/contract-negotiation.png" data-background-size="80%">
+                <aside class="notes">
+                    <ul>
+                        <li>Context map</li>
+                        <li>Conformist, Anticorruption layer itp.</li>
+                        <li>Michael Plöd</li>
+                    </ul>
             </section>
 
             <section>
                 <h1>Rozdział 4<div class="fragment">Wysłannicy</div>
             </section>
 
-            <section>
-                <h1>Kim jest wysłannik?</h1>
+            <section data-background="./img/emissary.png" data-background-size="80%">
                 <aside class="notes">
                     <ul>
-                        <li>"An emissary is a representative. It is person sent on a special mission as a
-                            diplomatic
-                            representative. Unlike an ambassador, an emissary has NO authority. They can
-                            only play
-                            nicely, suck-up, and try to ease the relationship."</li>
+                        <li>Wysłannik to klient zamku</li>
+                        <li>Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem</li>
+                        <li>Wysłannik operuje na danych klienta</li>
                     </ul>
                 </aside>
             </section>
 
             <section>
-                Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem. To użytkownik wysłannika
-                decyduje co
-                zrobić z danymi oraz authoryzuje
-                operacje.
+                <h3>
+                    <em>"An emissary is person sent on a special mission as a
+                        diplomatic representative. Unlike an ambassador, an emissary has NO authority. They can
+                        only play nicely, suck-up, and try to ease the relationship."</em>
+                </h3>
+                <aside class="notes">
+                    <ul>
+                        <li>Pytanie po co nam wysłannik?</li>
+                    </ul>
+                </aside>
+            </section>
 
-                Wysłannik ma dane per klient.
+            <section data-background="./img/letmedoitforyou.jpg" data-background-size="60%">
+                <aside class="notes">
+                    <ul>
+                        <li>Może pracowć offline</li>
+                        <li>Może buforować wiadomości</li>
+                        <li>Może obsługiwać retry</li>
+                        <li>Może agregować wiadomości</li>
+                        <li>Może zapisywać stan współpracy</li>
+                    </ul>
             </section>
 
             <section>
-                Wysłannik może posiadać kopię danych klienta, które są znaczące z punktu widzenia procesu.
-                Wysłannicy operują na niezmiennych danych referencyjnych. Zdjęcie katalogu produktów apart
-                czy innej
-                ikea.
-            </section>
-
-            <section>
-                Przykład pyszne.pl albo klient do gry, albo doradca kredytowy (zbierał dane od klienta, ale
-                po
-                wyborze
-                oferty to klient musiał sam złożyć wniosek w banku)
-            </section>
-
-            <section>
-                Przykład klienta pocztowego - wiele zamków (serwerów pocztowych), wiele wysłanników
-                (klientów
-                pocztowych
-                e.g. telefon, przeglądarka, program pocztowy)
-            </section>
-
-
-            <section>
-                Wysłannicy mogą pracować offline. Mogą buforować dane podczas braku łączności co wspiera
-                asynchroniczność, natomiast musi być obsłużone przez programistę. (zwykły bufor na
-                wiadomości nie
-                wystarczy)
-
-                W przypadku długotrwałych operacji biznesowych (np. proces zakupowy) konieczne jest
-                zapisywanie
-                danych
-                po obu stronach (zamek i wysłannik).
+                <div style="position: relative; width: 100%; height: 700px;">
+                    <img src="./img/broker.jpg" class="fragment"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 50%; transform: translateX(-50%); top: 5%;">
+                    <img src="./img/email.jpg" class="fragment"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: -5%; bottom: 5%;">
+                    <img src="./img/takeaway.png" class="fragment"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: -5%; bottom: 5%;">
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Doradca kretytowy</li>
+                        <li>Klient pocztowy wiele zamków (serwerów pocztowych), wiele wysłanników, (wiele aplikacji,
+                            telefon ,przegladarka, program pocztowy)</li>
+                        <li>Systemy zamówień jedzenia - wyłączenie MC</li>
+                    </ul>
+                </aside>
             </section>
 
             <section>
@@ -391,29 +384,16 @@
             </section>
 
             <section>
-            </section>
-
-            <section>
                 Różne:
                 <ul>
                     <li>Przeważnie wewnątrz zamku idziemy w orkiestrację, a poza w choreografię</li>
             </section>
 
-
-            <section data-background="./img/seven-kingdoms.svg" data-background-size="contain"
-                data-background-repeat="no-repeat" data-background-size="100%">
-                <div
-                    style="position: absolute; bottom: 0; right: 0; padding: 20px 30px; font-size: 0.5em; opacity: 0.7;">
-                    Source: <a href="https://awoiaf.westeros.org/" target="_blank">A wiki of ice and
-                        fire</a>
-                </div>
-            </section>
-
-            <section data-background="./img/customer.jpg" data-background-size="100%">
+            <section>
+                <h1>Epilog</h1>
             </section>
 
             <section>
-                <h1>Epilog</h1>
                 To jest wzorzec do tworzenia skalowalnych systemów rozproszonych.
                 Jak autonomia wspiera architekturę (nie tylko mikroserwisową).
 
@@ -422,7 +402,14 @@
             </section>
 
             <section>
-                "All models are wrong, but some are useful." - George E.P. Box
+                <div
+                    style="display: flex; justify-content: space-around; align-items: center; height: 100%; padding: 0 50px;">
+                    <img src="./img/GeorgeEPBox.jpg" style="height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <div class="fragment" style="flex: 1; padding-left: 50px;">
+                        <h3><em>"All models are wrong, but some are useful."</em></h3>
+                        <h5>George E.P. Box</h5>
+                    </div>
+                </div>
             </section>
 
             <section>

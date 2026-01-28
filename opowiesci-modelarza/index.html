@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Z pamiętnika modelarza">
+    <meta name="author" content="Rafal Pienkowski">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Z pamiętnika modelarza</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css">
+    <link rel="stylesheet" href="plugin/highlight/vs.css">
+
+    <style>
+        .reveal .slide-background {
+            box-shadow: none !important;
+        }
+
+        .source-attribution {
+            position: fixed !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            padding: 20px 30px;
+            font-size: 0.5em;
+            opacity: 0.7;
+            z-index: 100;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-auto-animate>
+                <h1>
+                    Opowieści modelarza
+                </h1>
+                <h2>
+                    Rafał Pieńkowski
+                </h2>
+                <aside class="notes">
+                    <ul>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-auto-animate>
+                <h1>
+                    Opowieści modelarza
+                </h1>
+                <h2>
+                    zamki, wysłannicy i współpraca
+                </h2>
+                <aside class="notes">
+                    <ul>
+                        <li>Zachęcam do włączenia się w prezentację</li>
+                        <li>Na końcu będzą linki</li>
+                        <li>Pokazac sposób wyjaśnienia Pat Hellanda</li>
+                        <li>Nie ma na celu przekonania do konkretnego rozwiązania</li>
+                        <li>Zobaczymy potęgę metafory ("Metafory w naszym życiu")</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>Prolog</h1>
+            </section>
+
+            <section>
+                <div style="position: relative; width: 100%; height: 700px;">
+                    <img src="./img/m-kopa.png"
+                        style="position: absolute; transform: rotate(-8deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 5%; top: 25%; z-index: 2;">
+                    <img src="./img/datacenter_servers.jpg"
+                        style="position: absolute; transform: rotate(8deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 5%; top: 25%; z-index: 2;">
+                    <img src="./img/chees.jpeg"
+                        style="position: absolute; transform: translateX(-50%) rotate(-3deg); height: 300px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 50%; bottom: -10%; z-index: 1;">
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>W obecnej pracy mam możliwość pracować z EDA i mikroserwisami</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>
+                    Rozdział 1
+                </h1>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Ankieta DDD</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <div
+                    style="position: relative; width: 100%; height: 600px; display: flex; justify-content: center; align-items: center;">
+                    <img src="./img/ddd-blue-book-cover.jpg"
+                        style="position: absolute; transform: rotate(-8deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 25%; top: 10%;">
+                    <img src="./img/ddd-red-book-cover.jpg"
+                        style="position: absolute; transform: rotate(8deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 25%; top: 10%;">
+                    <img src="./img/ddd-distilled-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(-12deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 18%; top: 12%;">
+                    <img src="./img/ddd-learning-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(15deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: 22%; top: 8%;">
+                    <img src="./img/ddd-patterns-book-cover.jpg" class="fragment fade-up"
+                        style="position: absolute; transform: rotate(-3deg); height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 42%; top: 15%;">
+                </div>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Wprowadzanie nowy osób</li>
+                        <li>Walka o definicje czym jest agregat</li>
+                        <li>Skupienie się na taktycznych wzrocach</li>
+                        <li>Explain me like I'm five</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/ddd-circle.png" data-background-size="80%">
+            </section>
+
+            <section data-background="./img/why.jpg" data-background-size="60%">
+                <aside class="notes">
+                    <ul>
+                        <li>Explain me like I'm five</li>
+                        <li>Wizyta na KanDDDynsky</li>
+                        <li>Prosty człowiek</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>Rozdział 2</h1>
+            </section>
+
+            <section data-background="./img/castle.png" data-background-size="80%">
+                <aside class="notes">
+                    <ul>
+                        <li>Zamek to może być moduł, aplikacja, jeden lub więcej współpracujących mikroserwisów itp.
+                        </li>
+                        <li>Nie wierzymy obcym</li>
+                        <li>Wewnątrz zamku mamy pełną kontrolę nad logiką biznesową</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/oracle.png" data-background-size="80%">
+                <aside class="notes">
+                    <ul>
+                        <li>W zamku jest wyrocznia - źródło prawdy</li>
+                        <li>Bronimy tego, co w zamku najważniejsze poprzez reguły i inne prawa</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2><em>If you don't trust your business partner you won't share transactions with them."</em></h2>
+                <h4>
+                    <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> Pat Helland's
+                        Autonomous Computing</a>
+                </h4>
+                <aside class="notes">
+                    <ul>
+                        <li>Zamek jest autonomiczny</li>
+                        <li>Gwarancja transakcyjności/kontekstu wewnątrz zamku</li>
+                        <li>Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy</li>
+                        <li>Dane na zewnątrz zamku są niezmienne</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/whole-in-the-wall.jpg" data-background-size="100%">
+                <div class="fragment fade-up"
+                    style="position: relative; width: 100%; height: 800px; display: flex; justify-content: center; align-items: center;">
+                    <img src="./img/a_philosophy_of_software_design.jpg"
+                        style="position: absolute; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Jedyna opcja współpracy z zamkiem jest poprzez wysłanie wiadomości</li>
+                        <li>Interfejs dostępu do zamku powinien być dobrze przemyślany</li>
+                        <li>Nie chcemy udostpępniać wszystkiego co mamy wewnątrz zamku</li>
+                </aside>
+            </section>
+
+            <section data-background="./img/atm.jpg" data-background-size="40%">
+                <aside class="notes">
+                    <ul>
+                        <li>Zdefiniowane operacje</li>
+                        <li>Nie udostępniamy połączenia do bazy danych</li>
+                        <li>Potrzebny jest PIN</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/castle.png" data-background-size="80%">
+            </section>
+
+            <section data-auto-animate data-background="./img/castle2.png" data-background-size="100%"
+                data-background-position="center center">
+            </section>
+
+            <section>
+                <h1>Rozdział 3<div class="fragment">Współpraca</div>
+                    <aside class="notes">
+                        <ul>
+                        </ul>
+                    </aside>
+            </section>
+
+            <section data-background="./img/collaboration.png" data-background-size="90%">
+
+                <img src="./img/message.png" class="fragment" style="height: 200px; z-index: 2;">
+                <aside class="notes">
+                    <ul>
+                        <li>Biznes == długopis i papieru</li>
+                        <li>Kolaboracja jest offline => bardzo ważne</li>
+                        <li>Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
+                            skalowalność</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/pit.png" data-background-size="40%">
+                <aside class="notes">
+                    <ul>
+                        <li>Przykład z życia: wnioski urzędowe, listy przewozowe, faktury</li>
+                        <li>W naszym kontekście to wymiana wiadomości w czasie w celu osiągnięcia celu
+                            biznesowego
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/pit.png" data-background-size="80%" data-background-position="center top">
+                <aside class="notes">
+                    <ul>
+                        <li>Każdy druk miał swój unikalny i niezmienny number/sugnaturę, która pozwalała na jego
+                            identyfikację</li>
+                        <li>Sygnatura była niezmienna</li>
+                        <li>Sygnatura być naturalna lub wygenerowana</li>
+                        <li>Druki są wersjonowane</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/ikea.jpg" data-background-size="40%">
+                <aside class="notes">
+                    <ul>
+                        <li>Dane potrzebne do wypesłnienia "interfajsu zamkowego"</li>
+                        <li>Referencje do danych poza zamkiem, katalog ikea</li>
+                        Ciemna strona niezmienności:
+                        <ul>
+                            <li>Dane są zapisywane w wielu miejscach</li>
+                            <li>Denormalizacja => smaczna ale tuczy</li>
+                            <li>Poza zamkiem to "tylko" cache</li>
+                        </ul>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/eventual_consistency.png" data-background-size="90%">
+
+                <aside class="notes">
+                    <ul>
+                        <li>Zamiast tego wysyłamy ciąg wiadomości asynchronicznych.</li>
+                        <li>Transakcje rozproszone są kosztowne i zawodzne</li>
+                        <li>Wzorce typu rezerwacja zasobu, dostpępność itp.</li>
+                        <li>Dla biznesu to najmniejszy problem</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/complex.jpg" data-background-size="40%">
+                <aside class="notes">
+                    <ul>
+                        <li>Idempotentność</li>
+                        <li>Obsługa błędów</li>
+                        <li>Kolejność wiadomości</li>
+                        <li>Monitorowanie</li>
+                        <li>Wersjonowanie</li>
+                        <li>Itp.</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/contract-negotiation.png" data-background-size="80%">
+                <aside class="notes">
+                    <ul>
+                        <li>Context map</li>
+                        <li>Conformist, Anticorruption layer itp.</li>
+                        <li>Michael Plöd</li>
+                    </ul>
+            </section>
+
+            <section>
+                <h1>Rozdział 4<div class="fragment">Wysłannicy</div>
+            </section>
+
+            <section>
+                <h4>
+                    <em>"An emissary is person sent on a special mission as a
+                        diplomatic representative. Unlike an ambassador, an emissary has NO authority. They can
+                        only play nicely, suck-up, and try to ease the relationship."</em>
+                </h4>
+
+                <img src="./img/emissary.png" style="width: 40%; height: 40%;">
+
+                <aside class="notes">
+                    <ul>
+                        <li>Pytanie po co nam wysłannik?</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/letmedoitforyou.jpg" data-background-size="60%">
+            </section>
+
+            <section data-background="./img/offline.png" data-background-size="60%">
+                <aside class="notes">
+                    <ul>
+                        <li>Może pracowć offline</li>
+                        <li>Może buforować wiadomości</li>
+                        <li>Może obsługiwać retry</li>
+                        <li>Może zapisywać stan współpracy</li>
+                        <li>Realiable systems have alwasy been built out of unreliable components"</li>
+                        <li>To jest wzorzec do tworzenia skalowalnych systemów rozproszonych</li>
+                        <li>Jak autonomia wspiera architekturę (nie tylko mikroserwisową)</li>
+                    </ul>
+            </section>
+
+            <section>
+                <div style="position: relative; width: 100%; height: 700px;">
+                    <img src="./img/broker.jpg"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: 50%; transform: translateX(-50%); top: 5%;">
+                    <img src="./img/email.jpg" class="fragment"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); left: -5%; bottom: 5%;">
+                    <img src="./img/takeaway.png" class="fragment"
+                        style="position: absolute; height: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); right: -5%; bottom: 5%;">
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Doradca kretytowy</li>
+                        <li>Klient pocztowy wiele zamków (serwerów pocztowych), wiele wysłanników, (wiele aplikacji,
+                            telefon ,przegladarka, program pocztowy)</li>
+                        <li>Systemy zamówień jedzenia - wyłączenie MC</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-auto-animate data-background="./img/example.jpg" data-background-size="80%"
+                data-background-position="center center">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                    <img src="./img/chees.jpeg" class="fragment"
+                        style="height: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                </div>
+                <aside class="notes">
+                    <ul>
+                        <li>Przykład z życia - system rezerwacji sal konferencyjnych</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section data-background="./img/example2.jpg" data-background-size="80%"
+                data-background-position="center center">
+            </section>
+
+            <section data-background="./img/example3.jpg" data-background-size="80%"
+                data-background-position="center center">
+            </section>
+
+            <section data-background="./img/example4.jpg" data-background-size="80%"
+                data-background-position="center center">
+            </section>
+
+            <section data-background="./img/example5.jpg" data-background-size="80%"
+                data-background-position="center center">
+            </section>
+
+            <section data-background="./img/example6.jpg" data-background-size="80%"
+                data-background-position="center center">
+                <aside class="notes">
+                    <ul>
+                        <li>A teraz kodzik</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h1>Epilog</h1>
+            </section>
+
+            <section>
+                <div
+                    style="display: flex; justify-content: space-around; align-items: center; height: 100%; padding: 0 50px;">
+                    <img src="./img/GeorgeEPBox.jpg" style="height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <div class="fragment" style="flex: 1; padding-left: 50px;">
+                        <h3><em>"All models are wrong, but some are useful."</em></h3>
+                        <h5>George E.P. Box</h5>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Link do ankietki</h2>
+                <img data-src="./img/ankieta.png" height=600px>
+            </section>
+
+            <section>
+                <h2>Link do prezentacj</h2>
+                <img data-src="./img/presentation.png" height=600px>
+            </section>
+
+            <section>
+                <h1>Dziękuję</h1>
+            </section>
+
+            <section>
+                <h2>Linki</h2>
+                <ul>
+                    <li><a href="https://www.cidrdb.org/cidr2005/papers/P12.pdf">Data on the Outside versus
+                            Data
+                            on the
+                            Inside</a></li>
+                    <li><a href="https://pathelland.substack.com/p/autonomous-computing-short-version">Autonomous
+                            Computing (short version)</a></li>
+                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Any Other Name</a>
+                    </li>
+                    <li><a href="https://www.cidrdb.org/cidr2015/Papers/CIDR15_Paper16.pdf">Immutability
+                            Changes
+                            Everything</a></li>
+                    <li><a href="https://arxiv.org/pdf/0909.1788">Building on Quicksand</a></li>
+                    <li><a href="https://queue.acm.org/detail.cfm?id=3314115">Identity by Another Name</a>
+                    </li>
+                    <li><a href="https://www.youtube.com/watch?v=k5i4sP9q2Lk">Introduction to Context
+                            Mapping -
+                            Michael
+                            Plöd - DDD Europe 2022</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=VjtMt689ql8">Context Maps - a deep dive -
+                            Michael
+                            Plöd
+                            - KanDDDinsky 2019</a></li>
+                    <li><a href="">Example source code</a></li>
+                </ul>
+            </section>
+
+            <script src="dist/reveal.js"></script>
+            <script src="plugin/notes/notes.js"></script>
+            <script src="plugin/markdown/markdown.js"></script>
+            <script src="plugin/highlight/highlight.js"></script>
+            <script>
+                // More info about initialization & config:
+                // - https://revealjs.com/initialization/
+                // - https://revealjs.com/config/
+                Reveal.initialize({
+                    hash: true,
+                    controls: false,
+                    width: 1200,
+                    height: 900,
+                    progress: false,
+
+                    // Learn about plugins: https://revealjs.com/plugins/
+                    plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+                });
+            </script>
+</body>
+
+</html>

@@ -55,19 +55,13 @@
                 <h2>
                     zamki, wysłannicy i współpraca
                 </h2>
-            </section>
-
-            <section>
-                <h1>
-                    Cel prezentacji
-                </h1>
                 <aside class="notes">
                     <ul>
-                        <li>Prezentacja ma zmotywować do przemyśleń</li>
-                        <li>Pokazac mniej znane podejście do modelowania domeny</li>
+                        <li>Zachęcam do włączenia się w prezentację</li>
+                        <li>Na końcu będzą linki</li>
+                        <li>Pokazac sposób wyjaśnienia Pat Hellanda</li>
                         <li>Nie ma na celu przekonania do konkretnego rozwiązania</li>
                         <li>Zobaczymy potęgę metafory ("Metafory w naszym życiu")</li>
-                        <li>Ankieta DDD</li>
                     </ul>
                 </aside>
             </section>
@@ -99,7 +93,7 @@
 
                 <aside class="notes">
                     <ul>
-                        <li>DDD</li>
+                        <li>Ankieta DDD</li>
                     </ul>
                 </aside>
             </section>
@@ -124,7 +118,7 @@
                         <li>Wprowadzanie nowy osób</li>
                         <li>Walka o definicje czym jest agregat</li>
                         <li>Skupienie się na taktycznych wzrocach</li>
-                        <li>Wizyta na KanDDDynsky</li>
+                        <li>Explain me like I'm five</li>
                     </ul>
                 </aside>
             </section>
@@ -135,6 +129,7 @@
             <section data-background="./img/why.jpg" data-background-size="60%">
                 <aside class="notes">
                     <ul>
+                        <li>Explain me like I'm five</li>
                         <li>Wizyta na KanDDDynsky</li>
                         <li>Prosty człowiek</li>
                     </ul>
@@ -151,8 +146,7 @@
                         <li>Zamek to może być moduł, aplikacja, jeden lub więcej współpracujących mikroserwisów itp.
                         </li>
                         <li>Nie wierzymy obcym</li>
-                        <li>Wewnątrz zamku mamy pełną kontrolę nad danymi i logiką biznesową</li>
-                        <li>Dane na zewnątrz zamku są niezmienne</li>
+                        <li>Wewnątrz zamku mamy pełną kontrolę nad logiką biznesową</li>
                     </ul>
                 </aside>
             </section>
@@ -162,9 +156,6 @@
                     <ul>
                         <li>W zamku jest wyrocznia - źródło prawdy</li>
                         <li>Bronimy tego, co w zamku najważniejsze poprzez reguły i inne prawa</li>
-                        <li>Jasna analogia do granicy</li>
-                        <li>Gwarancja transakcyjności/kontekstu wewnątrz zamku</li>
-                        <li>Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy</li>
                     </ul>
                 </aside>
             </section>
@@ -172,12 +163,14 @@
             <section>
                 <h2><em>If you don't trust your business partner you won't share transactions with them."</em></h2>
                 <h4>
-                    <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> PatHelland's
+                    <a href="https://pathelland.substack.com/p/autonomous-computing-short-version"> Pat Helland's
                         Autonomous Computing</a>
                 </h4>
                 <aside class="notes">
                     <ul>
                         <li>Zamek jest autonomiczny</li>
+                        <li>Gwarancja transakcyjności/kontekstu wewnątrz zamku</li>
+                        <li>Transakcje są wewnątrz zamku co wspoomaga skalowalność, dostępność i odporność na błędy</li>
                         <li>Dane na zewnątrz zamku są niezmienne</li>
                     </ul>
                 </aside>
@@ -218,10 +211,21 @@
                 <h1>Rozdział 3<div class="fragment">Współpraca</div>
                     <aside class="notes">
                         <ul>
-                            <li>Biznes == długopis i papieru</li>
-                            </li>
                         </ul>
                     </aside>
+            </section>
+
+            <section data-background="./img/collaboration.png" data-background-size="90%">
+
+                <img src="./img/message.png" class="fragment" style="height: 200px; z-index: 2;">
+                <aside class="notes">
+                    <ul>
+                        <li>Biznes == długopis i papieru</li>
+                        <li>Kolaboracja jest offline => bardzo ważne</li>
+                        <li>Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
+                            skalowalność</li>
+                    </ul>
+                </aside>
             </section>
 
             <section data-background="./img/pit.png" data-background-size="40%">
@@ -258,18 +262,6 @@
                             <li>Denormalizacja => smaczna ale tuczy</li>
                             <li>Poza zamkiem to "tylko" cache</li>
                         </ul>
-                    </ul>
-                </aside>
-            </section>
-
-            <section data-background="./img/collaboration.png" data-background-size="90%">
-
-                <img src="./img/message.png" class="fragment" style="height: 200px; z-index: 2;">
-                <aside class="notes">
-                    <ul>
-                        <li>Kolaboracja jest offline => bardzo ważne</li>
-                        <li>Współpraca unika transakcji rozproszonych => wpływ na przepustowość, dostępność,
-                            skalowalność</li>
                     </ul>
                 </aside>
             </section>
@@ -312,22 +304,15 @@
                 <h1>Rozdział 4<div class="fragment">Wysłannicy</div>
             </section>
 
-            <section data-background="./img/emissary.png" data-background-size="80%">
-                <aside class="notes">
-                    <ul>
-                        <li>Wysłannik to klient zamku</li>
-                        <li>Zamek nie ufa wysłannikowi, ponieważ operuje on poza zamkiem</li>
-                        <li>Wysłannik operuje na danych klienta</li>
-                    </ul>
-                </aside>
-            </section>
-
             <section>
                 <h4>
                     <em>"An emissary is person sent on a special mission as a
                         diplomatic representative. Unlike an ambassador, an emissary has NO authority. They can
                         only play nicely, suck-up, and try to ease the relationship."</em>
                 </h4>
+
+                <img src="./img/emissary.png" style="width: 40%; height: 40%;">
+
                 <aside class="notes">
                     <ul>
                         <li>Pytanie po co nam wysłannik?</li>
@@ -336,21 +321,17 @@
             </section>
 
             <section data-background="./img/letmedoitforyou.jpg" data-background-size="60%">
-                <aside class="notes">
-                    <ul>
-                        <li>Może pracowć offline</li>
-                        <li>Może buforować wiadomości</li>
-                        <li>Może obsługiwać retry</li>
-                        <li>Może agregować wiadomości</li>
-                        <li>Może zapisywać stan współpracy</li>
-                    </ul>
             </section>
 
             <section data-background="./img/offline.png" data-background-size="60%">
                 <aside class="notes">
                     <ul>
+                        <li>Może pracowć offline</li>
+                        <li>Może buforować wiadomości</li>
+                        <li>Może obsługiwać retry</li>
+                        <li>Może zapisywać stan współpracy</li>
                         <li>Realiable systems have alwasy been built out of unreliable components"</li>
-                        f <li>To jest wzorzec do tworzenia skalowalnych systemów rozproszonych</li>
+                        <li>To jest wzorzec do tworzenia skalowalnych systemów rozproszonych</li>
                         <li>Jak autonomia wspiera architekturę (nie tylko mikroserwisową)</li>
                     </ul>
             </section>
@@ -374,9 +355,11 @@
                 </aside>
             </section>
 
-            <section data-auto-animate data-background="./img/example.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-auto-animate data-background="./img/example.jpg" data-background-size="80%"
+                data-background-position="center center">
                 <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                    <img src="./img/chees.jpeg" class="fragment" style="height: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <img src="./img/chees.jpeg" class="fragment"
+                        style="height: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                 </div>
                 <aside class="notes">
                     <ul>
@@ -385,19 +368,29 @@
                 </aside>
             </section>
 
-            <section data-background="./img/example2.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-background="./img/example2.jpg" data-background-size="80%"
+                data-background-position="center center">
             </section>
 
-            <section data-background="./img/example3.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-background="./img/example3.jpg" data-background-size="80%"
+                data-background-position="center center">
             </section>
 
-            <section data-background="./img/example4.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-background="./img/example4.jpg" data-background-size="80%"
+                data-background-position="center center">
             </section>
 
-            <section data-background="./img/example5.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-background="./img/example5.jpg" data-background-size="80%"
+                data-background-position="center center">
             </section>
 
-            <section data-background="./img/example6.jpg" data-background-size="80%" data-background-position="center center">
+            <section data-background="./img/example6.jpg" data-background-size="80%"
+                data-background-position="center center">
+                <aside class="notes">
+                    <ul>
+                        <li>A teraz kodzik</li>
+                    </ul>
+                </aside>
             </section>
 
             <section>
@@ -454,6 +447,7 @@
                             Michael
                             Plöd
                             - KanDDDinsky 2019</a></li>
+                    <li><a href="">Example source code</a></li>
                 </ul>
             </section>
 
